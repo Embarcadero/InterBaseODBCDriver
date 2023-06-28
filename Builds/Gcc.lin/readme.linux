@@ -1,0 +1,36 @@
+#
+# 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+#              Changes for InterBase ODBC driver
+#
+
+For connect from unixODBC :
+
+    Into share folder :
+    libOdbcIB.so
+
+
+The odbc-config-files in /etc shoud look like this:
+
+odbcinst.ini:
+--------------------
+[InterBase]
+Description     = InterBase ODBC Driver
+Driver          = /usr/lib/libOdbcIB.so
+Setup           = /usr/lib/libOdbcIB.so
+Threading 	= 1
+FileUsage       = 1
+CPTimeout       =
+CPReuse         =
+
+odbc.ini:
+-----------------
+[your_datasource_name]
+Description     = InterBase
+Driver          = InterBase
+Dbname          = localhost:/var/lib/interbase/data/bla.gdb
+User            =
+Password        =
+Role            =
+CharacterSet    =
+ReadOnly        = No
+NoWait          = No

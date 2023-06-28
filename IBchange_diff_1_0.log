@@ -1,0 +1,1866 @@
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Builds/Gcc.lin/makefile.linux OdbcJdbc/Builds/Gcc.lin/makefile.linux
+20c20,21
+< #
+---
+> # 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+> #              Changes for InterBase ODBC driver
+31,32c32,33
+< #ARCH = x86
+< #FIREBIRD=/usr/lib64/firebird
+---
+> ARCH = x86
+> INTERBASE=/opt/interbase
+40c41
+< LIB_ROOT_NAME = OdbcFb
+---
+> LIB_ROOT_NAME = OdbcIB
+74c75
+< INCLUDEDIR      = -I$(FBINCDIR) -I/usr/include/odbc $(INCLUDEDIR)
+---
+> INCLUDEDIR      := -I$(FBINCDIR) -I/usr/include/odbc $(INCLUDEDIR)
+97c98
+< COMPFLAGS	:= -fPIC -m64
+---
+> COMPFLAGS	+= -fPIC -m64
+100c101
+< COMPFLAGS	:= -m32
+---
+> COMPFLAGS	+= -m32
+113c114
+< #ODBCJDBCSETUP	= libOdbcFbS.so
+---
+> #ODBCJDBCSETUP	= libOdbcIBS.so
+202c203
+< 	tar -C ../../Install/Linux -cf $(PACKAGE_NAME) install.sh readme.txt DriverTemplate.ini FirebirdDSNTemplate.ini InterBaseDSNTemplate.ini
+---
+> 	tar -C ../../Install/Linux -cf $(PACKAGE_NAME) install.sh readme.txt DriverTemplate.ini InterBaseDSNTemplate.ini
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Builds/Gcc.lin/readme.linux OdbcJdbc/Builds/Gcc.lin/readme.linux
+1,2c1,4
+< 1)==================================================================
+<   For connect from unixODBC :
+---
+> #
+> # 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+> #              Changes for InterBase ODBC driver
+> #
+4,21c6
+<     Into share folder :
+<     libOdbcFb.so
+< 
+< 2)==================================================================
+< Conrtributed by On Tuesday 28 October 2003 19:23, Yves Glodt wrote:
+< > Hi,
+< >
+< > I downloaded the latest snapshot of the odbc/jdbc driver for Linux
+< > from ibphoenix.com, but I fail to find information about the setup
+< > in odbcinst.ini and odbc.ini.
+< >
+< > Where could I find it?
+< 
+< ok, in case you don't have the wonderful ODBCConfig, here is what it 
+< takes to set it up manually (thanks to Vladimir Tsvigun):
+< (On debian unstable, using the FB1.02 deb)
+< 
+< first, untar the OdbcJdbc_Snapshot.tar.gz into /usr/lib
+---
+> For connect from unixODBC :
+23,24c8,9
+< Then you should have this in /usr/lib:
+< libOdbcFb.so*
+---
+>     Into share folder :
+>     libOdbcIB.so
+31,34c16,19
+< [Firebird]
+< Description     = InterBase/Firebird ODBC Driver
+< Driver          = /usr/lib/libOdbcFb.so
+< Setup           = /usr/lib/libOdbcFb.so
+---
+> [InterBase]
+> Description     = InterBase ODBC Driver
+> Driver          = /usr/lib/libOdbcIB.so
+> Setup           = /usr/lib/libOdbcIB.so
+43,45c28,30
+< Description     = Firebird
+< Driver          = Firebird
+< Dbname          = localhost:/var/lib/firebird/data/bla.gdb
+---
+> Description     = InterBase
+> Driver          = InterBase
+> Dbname          = localhost:/var/lib/interbase/data/bla.gdb
+52,56d36
+< 
+< regards,
+< Yves
+< 
+< 3)==================================================================
+Only in OdbcJdbc/Builds: MsVc110.win
+Only in OdbcJdbc/Builds/MsVc80.win: IscDbc.vcproj
+Only in OdbcJdbc/Builds/MsVc80.win: OdbcIb.sln
+Only in OdbcJdbc/Builds/MsVc80.win: OdbcIb.vcproj
+Only in OdbcJdbc/Builds/MsVc80.win: OdbcJdbcSetup.vcproj
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Builds/MsVc80.win/build_platform.bat OdbcJdbc/Builds/MsVc80.win/build_platform.bat
+0a1,4
+> ::
+> :: 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+> ::              Changes for InterBase ODBC driver
+> ::
+8,15d11
+< if defined USE_NMAKE (
+< @echo using NMAKE
+< @nmake /i /f %~dp0\makefile.%vs_ver% %1 all >> build_%1%.log 2>&1
+< ) else (
+< @devenv %~dp0\OdbcFb.sln /%BUILDTYPE% "%BUILDCONFIG%|%FB_TARGET_PLATFORM%" /OUT build_%1%.log 2>&1
+< )
+< echo.
+< )
+16a13
+> @devenv %~dp0\OdbcIB.sln /%BUILDTYPE% "%BUILDCONFIG%|%FB_TARGET_PLATFORM%" /OUT build_%1%.log 2>&1
+Only in OdbcJdbc/Builds/MsVc90.win: IscDbc.vcproj
+Only in OdbcJdbc/Builds/MsVc90.win: OdbcJdbcSetup.vcproj
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Builds/MsVc90.win/build_platform.bat OdbcJdbc/Builds/MsVc90.win/build_platform.bat
+0a1,4
+> ::
+> :: 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+> ::              Changes for InterBase ODBC driver
+> ::
+9c13
+< @devenv %~dp0\OdbcFb.sln /%BUILDTYPE% "%BUILDCONFIG%|%FB_TARGET_PLATFORM%" /OUT build_%1%.log 2>&1
+---
+> @devenv %~dp0\OdbcIB.sln /%BUILDTYPE% "%BUILDCONFIG%|%FB_TARGET_PLATFORM%" /OUT build_%1%.log 2>&1
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/ConnectDialog.cpp OdbcJdbc/ConnectDialog.cpp
+18a19,22
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+111c115
+< BOOL CALLBACK wndprocConnectDialog(HWND hDlg, UINT message, WORD wParam, LONG lParam);
+---
+> BOOL CALLBACK wndprocConnectDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+158c162
+< BOOL CALLBACK wndprocConnectDialog(HWND hDlg, UINT message, WORD wParam, LONG lParam)
+---
+> BOOL CALLBACK wndprocConnectDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+259c263
+< //CAPTION "Firebird ODBC Setup"
+---
+> //CAPTION "InterBase ODBC Setup"
+287c291
+< 	nchar = nCopyAnsiToWideChar ( p, TEXT( _TR( IDS_DLG_TITLE_CONNECT, "Firebird ODBC Connect" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar ( p, TEXT( _TR( IDS_DLG_TITLE_CONNECT, "InterBase ODBC Connect" ) ) );
+Only in OdbcJdbc: IBchange.log
+Only in OdbcJdbc: IBchange_diff_1_0.log
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/OdbcJdbc.hhc OdbcJdbc/Install/HtmlHelp/OdbcJdbc.hhc
+12,13c12,13
+< 		<param name="Name" value="Firebird ODBC">
+< 		<param name="Local" value="html/FirebirdODBC.htm">
+---
+> 		<param name="Name" value="InterBase ODBC">
+> 		<param name="Local" value="html/InterBaseODBC.htm">
+18c18
+< 			<param name="Name" value="Firebird ODBC Configuration">
+---
+> 			<param name="Name" value="InterBase ODBC Configuration">
+68c68
+< 			<param name="Name" value="About the Firebird ODBC driver">
+---
+> 			<param name="Name" value="About the InterBase ODBC driver">
+72c72
+< 			<param name="Name" value="Licensing and Copyright of the  Firebird ODBC driver">
+---
+> 			<param name="Name" value="Licensing and Copyright of the InterBase ODBC driver">
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/OdbcJdbc.hhk OdbcJdbc/Install/HtmlHelp/OdbcJdbc.hhk
+9,10c9,10
+< 		<param name="Name" value="Firebird ODBC">
+< 		<param name="Local" value="html/FirebirdODBC.htm">
+---
+> 		<param name="Name" value="InterBase ODBC">
+> 		<param name="Local" value="html/InterBaseODBC.htm">
+13c13
+< 		<param name="Name" value="Firebird ODBC Configuration">
+---
+> 		<param name="Name" value="InterBase ODBC Configuration">
+17c17
+< 		<param name="Name" value="About the Firebird ODBC driver">
+---
+> 		<param name="Name" value="About the InterBase ODBC driver">
+29c29
+< 		<param name="Name" value="Copyright Firebird ODBC">
+---
+> 		<param name="Name" value="Copyright InterBase ODBC">
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/OdbcJdbc.hhp OdbcJdbc/Install/HtmlHelp/OdbcJdbc.hhp
+3c3
+< Compiled file=OdbcFb.chm
+---
+> Compiled file=OdbcIB.chm
+5c5
+< Default topic=html\FirebirdODBC.htm
+---
+> Default topic=html\InterBaseODBC.htm
+9c9
+< Title=Firebird ODBC
+---
+> Title=InterBase ODBC
+13c13
+< html\FirebirdODBC.htm
+---
+> html\InterBaseODBC.htm
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/About.htm OdbcJdbc/Install/HtmlHelp/html/About.htm
+26c26
+< <TITLE>About the Firebird ODBC driver</TITLE>
+---
+> <TITLE>About the InterBase ODBC driver</TITLE>
+31c31
+< <P><A NAME="hid_about_firebird_odbc"></A><h1>About the Firebird ODBC driver</h1></P>
+---
+> <P><A NAME="hid_about_firebird_odbc"></A><h1>About the InterBase ODBC driver</h1></P>
+33,34c33
+< <P>The Firebird ODBC driver supports Firebird for Windows, FreeBSD, Solaris,
+< and Linux.</P>
+---
+> <P>On <B>Windows</B>, InterBase ODBC driver consists of the following files:</P>
+36,38c35
+< <P>The Firebird ODBC driver consists of the following files:</P>
+< 
+< <P><B>OdbcFb.dll</B> </P>
+---
+> <P><B>OdbcIB.dll</B> </P>
+41,42c38
+< - The JDBC interface, provides access to Firebird via the Firebird API. <br>
+< - Install (Uninstall) the Firebird ODBC driver and configure the DSN.
+---
+> - Install (Uninstall) the InterBase ODBC driver and configure the DSN.
+45c41
+< <P><B>OdbcFb.chm</B></P>
+---
+> <P><B>OdbcIB.chm</B></P>
+47c43
+< <P>Help for the Firebird ODBC driver.</P>
+---
+> <P>Help for the InterBase ODBC driver.</P>
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/Clarion.htm OdbcJdbc/Install/HtmlHelp/html/Clarion.htm
+24c24
+< <TITLE>Using the Firebird ODBC driver with Clarion</TITLE>
+---
+> <TITLE>Using the InterBase ODBC driver with Clarion</TITLE>
+29c29
+< <h2>Using the Firebird ODBC driver with Clarion</h2>
+---
+> <h2>Using the InterBase ODBC driver with Clarion</h2>
+31c31
+< Clarion users can work with mixed case object names in Firebird.<p>
+---
+> Clarion users can work with mixed case object names in InterBase.<p>
+33c33
+< <li>Create your database in Firebird. You can use table names like
+---
+> <li>Create your database in InterBase. You can use table names like
+47,50d46
+< 
+< 
+< <p><cite> Thanks to Jorge Andres Brugger, Vernon Godwin and Vladimir Tsvigun for
+< the info contained in this document.</cite>
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/ConfigurationParameters.htm OdbcJdbc/Install/HtmlHelp/html/ConfigurationParameters.htm
+20a21,23
+>  *  08-Aug-2012: Contributions by Embarcadero Technologies, Inc.
+>  *      Changes for InterBase ODBC driver
+>  *
+26c29
+< <TITLE>Firebird ODBC Configuration</TITLE>
+---
+> <TITLE>InterBase ODBC Configuration</TITLE>
+31c34
+< <P><A NAME="hid_fb_odbc_configuration"></A><h1>Firebird ODBC Configuration Parameters</h1></P>
+---
+> <P><A NAME="hid_fb_odbc_configuration"></A><h1>InterBase ODBC Configuration Parameters</h1></P>
+41c44
+< 	<CODE>Example</CODE>: “Connect from FbEmbed” or “ConnectFbServer”</P>
+---
+> 	<CODE>Example</CODE>: ConnectIBServer</P>
+48,52d50
+< <P><B>Driver</B></P>
+< 
+< 	<P>Required.<BR>
+< 	<CODE>Always</CODE>: <B>IscDbc</B></P>
+< 
+59a58,62
+> <P>Required when using InterBase ToGo edition. Optional when using Server or Desktop editions. Current possible values: <BR>
+> <UL>gds32.dll - InterBase 32 bit client </UL>
+> <UL>ibclient64.dll - InterBase 64 bit client </UL>
+> <UL>ibtogo.dll - InterBase 32 bit ToGo </UL>
+> <UL>ibtogo64.dll - InterBase 64 bit ToGo</UL>
+61,63c64
+< 	<P>Required when using the embedded Server
+< 	Allows you to specify a command line to start the Firebird
+< 	embedded database(fbembed) or Firebird SQL client (gds32,fbclient).</P>
+---
+> 	</P>
+68c69
+< 	The user name to be used when connecting to a Firebird database.
+---
+> 	The user name to be used when connecting to a InterBase database.
+75c76
+< 	The password to be used with the User ID when connecting to a Firebird
+---
+> 	The password to be used with the User ID when connecting to a InterBase
+96c97
+< 	Specify a transaction type when connecting to a Firebird database
+---
+> 	Specify a transaction type when connecting to a InterBase database
+116c117
+< 		2 - Transitional flagger. InterBaseV6, and Firebird flags
+---
+> 		2 - Transitional flagger. InterBaseV6, and InterBase flags
+154a156,197
+> 
+> 	<P><B>SCHEMA detail</B></P>
+>      <P>InterBase does not support any explicit schema names. But, the support here is for ODBC applications that might use schema names in their queries.<P>
+>      <UL>
+>     <P>"Set null field SCHEMA" or connect string USESCHEMA=0;(default)<BR>
+>      Examples:<BR>
+>      from:
+>            <UL>
+>            select COUNTRY,CURRENCY from COUNTRY
+>            </UL>
+>      to: server 
+>            <UL>
+>            select COUNTRY,CURRENCY from COUNTRY
+>            </UL>
+>      </P>
+> 
+>     <P>
+>     "Remove SCHEMA from SQL query" or connect string USESCHEMA=1;<BR>
+>      Examples:<BR>
+>      from:
+>            <UL>
+>            select SYSDBA.COUNTRY,SYSDBA.CURRENCY from SYSDBA.COUNTRY
+>            </UL>
+>      to: server 
+>            <UL>
+>            select COUNTRY,CURRENCY from COUNTRY
+>            </UL>
+>      </P>
+> 
+>     <P>
+>     "Use full SCHEMA" or connect string USESCHEMA=2;<BR>
+>      Examples:<BR>
+>      from:
+>            <UL>
+>            select SYSDBA.COUNTRY,SYSDBA.CURRENCY from SYSDBA.COUNTRY
+>            </UL>
+>      to: server 
+>            <UL>
+>            select SYSDBA.COUNTRY,SYSDBA.CURRENCY from SYSDBA.COUNTRY
+>            </UL>
+>      </P>
+> 
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/ConnectionExamples.htm OdbcJdbc/Install/HtmlHelp/html/ConnectionExamples.htm
+39c39
+< <P>3. Open("<B>DSN</B>=myDb; <B>UID</B>=MCSSITE; <B>PWD</B>=mcssite; <B>DBNAME</B>=172.17.2.10:/usr/local/db/myDb.fdb;")</P>
+---
+> <P>3. Open("<B>DSN</B>=myDb; <B>UID</B>=MCSSITE; <B>PWD</B>=mcssite; <B>DBNAME</B>=172.17.2.10:/usr/local/db/myDb.gdb;")</P>
+41c41
+< <P>4. Open("<B>DRIVER</B>=Firebird/InterBase(r) driver; <B>DBNAME</B>=172.17.2.10:/usr/local/db/myDb.fdb;")</P>
+---
+> <P>4. Open("<B>DRIVER</B>=InterBase ODBC driver; <B>DBNAME</B>=172.17.2.10:/usr/local/db/myDb.gdb;")</P>
+43c43
+< <P>5. Open("<B>DRIVER</B>=Firebird/InterBase(r) driver; <B>UID</B>=MCSSITE; <B>PWD</B>=mcssite; <B>DBNAME</B>=172.17.2.10:/usr/local/db/myDb.fdb;")</P>
+---
+> <P>5. Open("<B>DRIVER</B>=InterBase ODBC driver; <B>UID</B>=MCSSITE; <B>PWD</B>=mcssite; <B>DBNAME</B>=172.17.2.10:/usr/local/db/myDb.gdb;")</P>
+47c47
+< <P>6. Open("<B>DRIVER</B>=Firebird/InterBase(r) driver; <B>UID</B>=MCSSITE; <B>PWD</B>=mcssite; <B>DBNAME</B>=dummy;")</P>
+---
+> <P>6. Open("<B>DRIVER</B>=InterBase ODBC driver; <B>UID</B>=MCSSITE; <B>PWD</B>=mcssite; <B>DBNAME</B>=dummy;")</P>
+49,50c49,50
+< <P>dummy – is an alias derived from the Firebird <B>aliases.conf</B> file.
+< If the environment variables <B>ISC_PASSWORD</B> and <B>ISC_USER</B> are set then the driver will use these. </P>
+---
+> <p>dummy – is an alias derived from the InterBase security database (admin.ib). If the environment variables
+> <B>ISC_PASSWORD</B> and <B>ISC_USER</B> are set then the driver will use these. </P>
+65c65
+< 	<B>172.17.2.10:/usr/local/db/myDb.fdb</B>
+---
+> 	<B>172.17.2.10:/usr/local/db/myDb.gdb</B>
+73c73
+< 	<B>myserver:/usr/local/db/myDb.fdb</B>
+---
+> 	<B>myserver:/usr/local/db/myDb.gdb</B>
+81c81
+< 	<B>172.17.2.10/3051:/usr/local/db/myDb.fdb</B>
+---
+> 	<B>172.17.2.10/3051:/usr/local/db/myDb.gdb</B>
+84c84
+< 	using the server IP address and especifing an alternate port, with 
+---
+> 	using the server IP address and specifying an alternate port, with 
+90c90
+< 	<B>myserver/3051:/usr/local/db/myDb.fdb</B>
+---
+> 	<B>myserver/3051:/usr/local/db/myDb.gdb</B>
+93c93
+< 	using the server name and especifing an alternate port, with 
+---
+> 	using the server name and specifying an alternate port, with 
+99c99
+< 	<B>172.17.2.10:c:\db\myDb.fdb</B>
+---
+> 	<B>172.17.2.10:c:\db\myDb.gdb</B>
+108c108
+< 	<B>myserver:c:\db\myDb.fdb</B>
+---
+> 	<B>myserver:c:\db\myDb.gdb</B>
+116c116
+< 	<B>172.17.2.10/3051:c:\db\myDb.fdb</B>
+---
+> 	<B>172.17.2.10/3051:c:\db\myDb.gdb</B>
+119c119
+< 	using the server IP address and especifing an alternate port, 
+---
+> 	using the server IP address and specifying an alternate port, 
+125c125
+< 	<B>myserver/3051:c:\db\myDb.fdb</B>
+---
+> 	<B>myserver/3051:c:\db\myDb.gdb</B>
+128c128
+< 	using the server name and especifing an alternate port, with a 
+---
+> 	using the server name and specifying an alternate port, with a 
+134c134
+< 	<B>127.0.0.1:/usr/local/db/myDb.fdb</B>
+---
+> 	<B>127.0.0.1:/usr/local/db/myDb.gdb</B>
+142c142
+< 	<B>localhost:/usr/local/db/myDb.fdb</B>
+---
+> 	<B>localhost:/usr/local/db/myDb.gdb</B>
+150c150
+< 	<B>127.0.0.1:c:\db\myDb.fdb</B>
+---
+> 	<B>127.0.0.1:c:\db\myDb.gdb</B>
+158c158
+< 	<B>localhost:c:\db\myDb.fdb</B>
+---
+> 	<B>localhost:c:\db\myDb.gdb</B>
+179c179
+< 	<B>C:\db\myDb.fdb</B>
+---
+> 	<B>C:\db\myDb.gdb</B>
+182c182
+<         local conection on a Windows Server
+---
+>         local connection on a Windows Server
+187c187
+< 	<B>/usr/local/db/myDb.fdb</B>
+---
+> 	<B>/usr/local/db/myDb.gdb</B>
+190c190
+<         local conection with a file name following Unix notation
+---
+>         local connection with a file name following Unix notation
+195c195
+< <P>Example alias: Using the Firebird aliases.conf e.g. set
+---
+> <p>Example alias: If you have a database alias setup in the security database (admin.ib) e.g. set
+197c197
+< 	dummy = c:\data\myDb.fdb</B><BR>
+---
+> 	dummy = c:\data\myDb.gdb</B><BR>
+199c199
+< 	dummy = /usr/local/db/myDb.fdb
+---
+> 	dummy = /usr/local/db/myDb.gdb
+218c218
+<         remote conection using the server IP address and an alias
+---
+>         remote connection using the server IP address and an alias
+226c226
+<         remote conection using the server name and an alias
+---
+>         remote connection using the server name and an alias
+231,234d230
+< <P>Note that does not matter for the client if the server are Unix or
+< Windows, one should just specify the alias name, and on the aliases.conf
+< you define the real file name.</P>
+< 
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/Copyright.htm OdbcJdbc/Install/HtmlHelp/html/Copyright.htm
+26c26
+< <TITLE>Licensing and copyright of the Firebird ODBC driver</TITLE>
+---
+> <TITLE>Licensing and copyright of the InterBase ODBC driver</TITLE>
+31c31
+< <P><A NAME="hid_copyright_firebird_odbc"></A><h2>Copyright and Licensing of the Firebird ODBC driver</h2></P>
+---
+> <P><A NAME="hid_copyright_firebird_odbc"></A><h2>Copyright and Licensing of the InterBase ODBC driver</h2></P>
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/Cursors.htm OdbcJdbc/Install/HtmlHelp/html/Cursors.htm
+33c33
+< <P>The current Firebird ODBC driver the cursors Dynamic and Keyset will be 
+---
+> <P>The current InterBase ODBC driver the cursors Dynamic and Keyset will be 
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/Environment.htm OdbcJdbc/Install/HtmlHelp/html/Environment.htm
+34c34
+<     The Firebird ODBC driver allows you to use multiple simultaneous connections
+---
+>     The InterBase ODBC driver allows you to use multiple simultaneous connections
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/Multithread.htm OdbcJdbc/Install/HtmlHelp/html/Multithread.htm
+33c33
+< <P>The Firebird ODBC driver provides two levels of thread protection.
+---
+> <P>The InterBase ODBC driver provides two levels of thread protection.
+41c41
+< performance, however responsibility for threading control is transferred to the Firebird
+---
+> performance, however responsibility for threading control is transferred to the InterBase
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/Procedures.htm OdbcJdbc/Install/HtmlHelp/html/Procedures.htm
+33c33
+< <P>Firebird supports two mechanisms to call stored procedures.</P>
+---
+> <P>InterBase supports two mechanisms to call stored procedures.</P>
+48c48
+< <P>The Firebird ODBC driver determines what call to use to execute the stored procedure depending on how the stored procedure was constructed. The key to this is the usage of the word SUSPEND in the stored procedure definition.</P>
+---
+> <P>The InterBase ODBC driver determines what call to use to execute the stored procedure depending on how the stored procedure was constructed. The key to this is the usage of the word SUSPEND in the stored procedure definition.</P>
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/HtmlHelp/html/Transactions.htm OdbcJdbc/Install/HtmlHelp/html/Transactions.htm
+33c33
+< <P>Firebird supports the following transaction isolation levels:</P>
+---
+> <P>InterBase supports the following transaction isolation levels:</P>
+39c39
+< <P>Firebird implements row-level locking in all cases.</P>
+---
+> <P>InterBase implements row-level locking in all cases.</P>
+41c41
+< <P>Firebird performs optimistic locking. Your transaction does  not attempt to lock 
+---
+> <P>InterBase performs optimistic locking. Your transaction does  not attempt to lock 
+46c46
+< <P>Firebird  uses  a unique versioning engine to achieve a granularity finer than that
+---
+> <P>InterBase  uses  a unique versioning engine to achieve a granularity finer than that
+50c50
+< block one  another,  and  the  Firebird  database  engine  maintains   these  record
+---
+> block one  another,  and  the  InterBase  database  engine  maintains   these  record
+54c54
+< Firebird databases. There is a restriction that only up to 10 databases can be  used
+---
+> InterBase databases. There is a restriction that only up to 10 databases can be  used
+65c65
+< <P>Firebird ODBC by default uses one transaction per connection, however programatically
+---
+> <P>InterBase ODBC by default uses one transaction per connection, however programatically
+69c69
+< different Firebird databases to carry out a two phase commit transaction across multiple
+---
+> different InterBase databases to carry out a two phase commit transaction across multiple
+Only in OdbcFb-Source-2.0.1.152/Install: HtmlHelp.ua
+Only in OdbcJdbc/Install: HtmlHelp.uk
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/IDPLicense.txt OdbcJdbc/Install/IDPLicense.txt
+482c482
+<    may obtain a copy of the License at http://www.ibphoenix.com/idpl.html. Software
+---
+>    may obtain a copy of the License at http://www.firebirdsql.com/en/initial-developer-s-public-license-version-1-0/. Software
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Linux/DriverTemplate.ini OdbcJdbc/Install/Linux/DriverTemplate.ini
+1,3c1,3
+< [Firebird]
+< Description     = Firebird/InterBase(r) driver
+< Driver          = /usr/lib/libOdbcFb.so
+\ No newline at end of file
+---
+> [InterBase]
+> Description     = InterBase ODBC driver
+> Driver = /usr/lib/libOdbcIB.so
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Linux/InterBaseDSNTemplate.ini OdbcJdbc/Install/Linux/InterBaseDSNTemplate.ini
+2,3c2,3
+< Description     = Firebird/InterBase(r) driver
+< Driver          = Firebird
+---
+> Description     = InterBase ODBC driver
+> Driver          = InterBase
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Linux/install.sh OdbcJdbc/Install/Linux/install.sh
+17a18,21
+> # 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+> #              Changes for InterBase ODBC driver
+> #
+> #
+44c48
+<     echo "Firebird ODBC driver for Linux.                                        "
+---
+>     echo "Interbase ODBC driver for Linux.                                        "
+93c97
+<             echo "  The Firebird ODBC Driver documentation will be created "
+---
+>             echo "  The Interbase ODBC Driver documentation will be created "
+195c199
+<         fbODBCDOCS=$fbODBCDOCS/FirebirdODBC
+---
+>         fbODBCDOCS=$fbODBCDOCS/InterbaseODBC
+237c241
+<     for afile in libOdbcFb.so
+---
+>     for afile in libOdbcIB.so
+327c331
+<     odbcinst -q -d -n Firebird || ErrorHelp 7
+---
+>     odbcinst -q -d -n Interbase || ErrorHelp 7
+340c344
+<     odbcinst -q -d -n Firebird || ErrorHelp 7
+---
+>     odbcinst -q -d -n Interbase || ErrorHelp 7
+342c346
+<     odbcinst -u -d -n Firebird || ErrorHelp 7
+---
+>     odbcinst -u -d -n Interbase || ErrorHelp 7
+355c359
+<     odbcinst -q -s -n TestFirebirdConnection
+---
+>     odbcinst -q -s -n TestInterbaseConnection
+363c367
+<         odbcinst -i -s -f FirebirdDSNTemplate.ini -l
+---
+>         odbcinst -i -s -f InterbaseDSNTemplate.ini -l
+410c414
+< in $fbODBCDOCS.\n\n\nThe Firebird ODBC driver development team" | mail -s "Firebird ODBC Driver Installation" $USER@localhost
+---
+> in $fbODBCDOCS.\n\n\nThe Interbase ODBC driver development team" | mail -s "Interbase ODBC Driver Installation" $USER@localhost
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Linux/readme.txt OdbcJdbc/Install/Linux/readme.txt
+1c1
+< Firebird ODBC Driver For Linux v1.2
+---
+> InterBase ODBC Driver For Linux
+4,5c4,5
+< This is the latest version of the IBPhoenix ODBC 
+< driver for Firebird and InterBase. See 
+---
+> This is the latest version of the InterBase ODBC 
+> driver for InterBase. See 
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Win32/Installation_Readme.txt OdbcJdbc/Install/Win32/Installation_Readme.txt
+1c1
+< The IBPhoenix Firebird ODBC Driver Installation
+---
+> The InterBase ODBC Driver Installation
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Win32/MakePackage.bat OdbcJdbc/Install/Win32/MakePackage.bat
+67c67
+< for /f "tokens=*" %%a in ('type %temp%.\b$2.bat') do set PRODUCT_VER_STRING=2.0.1.%%a
+---
+> for /f "tokens=*" %%a in ('type %temp%.\b$2.bat') do set PRODUCT_VER_STRING=1.0.0.%%a
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Win32/OdbcJdbcSetup.iss OdbcJdbc/Install/Win32/OdbcJdbcSetup.iss
+28a29,32
+> ; 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+> ;              Changes for InterBase ODBC driver
+> ;
+> ;
+49c53
+< #define FIREBIRD_URL "http://www.firebirdsql.org"
+---
+> #define URL "http://www.embarcadero.com/"
+81,82c85,86
+< AppName=Firebird ODBC Driver
+< AppVerName=Firebird/InterBase(r) ODBC driver {#ProductVersion}
+---
+> AppName=InterBase ODBC Driver
+> AppVerName=InterBase ODBC driver {#ProductVersion}
+85,93c89,97
+< AppPublisher=Firebird Project
+< AppPublisherURL={#FIREBIRD_URL}
+< AppSupportURL={#FIREBIRD_URL}
+< AppUpdatesURL={#FIREBIRD_URL}
+< 
+< DefaultDirName={pf}\Firebird\Firebird_ODBC
+< DefaultGroupName=Firebird\Firebird ODBC Driver
+< UninstallDisplayIcon={sys}\OdbcFb.dll
+< UninstallFilesDir={localappdata}\OdbcFb
+---
+> AppPublisher=Embarcadero Technologies, Inc.
+> AppPublisherURL={#URL}
+> AppSupportURL={#URL}
+> AppUpdatesURL={#URL}
+> 
+> DefaultDirName={pf}\Embarcadero\InterBase_ODBC
+> DefaultGroupName=Embarcadero\InterBase ODBC Driver
+> UninstallDisplayIcon={sys}\OdbcIB.dll
+> UninstallFilesDir={localappdata}\OdbcIB
+99c103
+< OutputBaseFilename=Firebird_ODBC_{#ProductVersion}_{#PlatformTarget}{#debug_str}
+---
+> OutputBaseFilename=InterBase_ODBC_{#ProductVersion}_{#PlatformTarget}{#debug_str}
+108c112
+< WizardImageFile={#SOURCE_DOCS}\Win32\firebird-logo1.bmp
+---
+> ;WizardImageFile={#SOURCE_DOCS}\Win32\logo1.bmp
+110c114
+< WizardSmallImageFile={#SOURCE_DOCS}\Win32\firebird-logo2.bmp
+---
+> ;WizardSmallImageFile={#SOURCE_DOCS}\Win32\logo2.bmp
+135,137c139,141
+< Source: {#SOURCE_LIBS}OdbcFb.dll; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent; Flags: regserver restartreplace sharedfile
+< Source: {#SOURCE_LIBS}\OdbcFb.lib; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent
+< Source: {#SOURCE_LIBS}\OdbcFb.pdb; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent
+---
+> Source: {#SOURCE_LIBS}OdbcIB.dll; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent; Flags: regserver restartreplace sharedfile
+> Source: {#SOURCE_LIBS}\OdbcIB.lib; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent
+> Source: {#SOURCE_LIBS}\OdbcIB.pdb; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent
+139,142c143,146
+< Source: {#SOURCE_DOCS}\HtmlHelp\OdbcFb.chm; DestDir: {app}; Components: DeveloperComponent DeploymentComponent; Flags: ignoreversion
+< Source: {#SOURCE_DOCS}\HtmlHelp\OdbcFb.chm; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent; Flags: ignoreversion
+< Source: {#SOURCE_DOCS}\HtmlHelp\OdbcFb.chm; DestDir: {app}; Components: DocumentationComponent; Flags: ignoreversion
+< Source: {#SOURCE_DOCS}\HtmlHelp\OdbcFb.chm; DestDir: {sys}; Components: DocumentationComponent; Flags: ignoreversion
+---
+> Source: {#SOURCE_DOCS}\HtmlHelp\OdbcIB.chm; DestDir: {app}; Components: DeveloperComponent DeploymentComponent; Flags: ignoreversion
+> Source: {#SOURCE_DOCS}\HtmlHelp\OdbcIB.chm; DestDir: {sys}; Components: DeveloperComponent DeploymentComponent; Flags: ignoreversion
+> Source: {#SOURCE_DOCS}\HtmlHelp\OdbcIB.chm; DestDir: {app}; Components: DocumentationComponent; Flags: ignoreversion
+> Source: {#SOURCE_DOCS}\HtmlHelp\OdbcIB.chm; DestDir: {sys}; Components: DocumentationComponent; Flags: ignoreversion
+148d151
+< ;Source: {#SOURCE_DOCS}\ReleaseNotes_v2.0.html; DestDir: {app}; Components: DocumentationComponent
+151,153c154,156
+< Source: {#SOURCE_LIBS32}OdbcFb.dll; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent; Flags: regserver restartreplace sharedfile
+< Source: {#SOURCE_LIBS32}\OdbcFb.lib; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent
+< Source: {#SOURCE_LIBS32}\OdbcFb.pdb; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent
+---
+> Source: {#SOURCE_LIBS32}OdbcIB.dll; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent; Flags: regserver restartreplace sharedfile
+> Source: {#SOURCE_LIBS32}\OdbcIB.lib; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent
+> Source: {#SOURCE_LIBS32}\OdbcIB.pdb; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent
+155,156c158,159
+< Source: {#SOURCE_DOCS}\HtmlHelp\OdbcFb.chm; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent; Flags: ignoreversion
+< Source: {#SOURCE_DOCS}\HtmlHelp\OdbcFb.chm; DestDir: {syswow64}; Components: DocumentationComponent; Flags: ignoreversion
+---
+> Source: {#SOURCE_DOCS}\HtmlHelp\OdbcIB.chm; DestDir: {syswow64}; Components: DeveloperComponent DeploymentComponent; Flags: ignoreversion
+> Source: {#SOURCE_DOCS}\HtmlHelp\OdbcIB.chm; DestDir: {syswow64}; Components: DocumentationComponent; Flags: ignoreversion
+161,162c164,165
+< Name: {group}\Uninstall Firebird ODBC driver; Filename: {uninstallexe}; Components: DocumentationComponent; Comment: Remove Firebird ODBC Driver Documentation
+< Name: {group}\Uninstall Firebird ODBC driver; Filename: {uninstallexe}; Components: DeveloperComponent; Comment: Remove Firebird ODBC Driver Library and Documentation
+---
+> Name: {group}\Uninstall OdbcIB ODBC driver; Filename: {uninstallexe}; Components: DocumentationComponent; Comment: Remove InterBase ODBC Driver Documentation
+> Name: {group}\Uninstall InterBase ODBC driver; Filename: {uninstallexe}; Components: DeveloperComponent; Comment: Remove InterBase ODBC Driver Library and Documentation
+164,170c167,172
+< Name: {group}\Firebird ODBC Help; Filename: {app}\OdbcFb.chm; Components: DocumentationComponent
+< Name: {group}\Firebird ODBC Help; Filename: {sys}\OdbcFb.chm; Components: DeveloperComponent
+< Name: {app}\Firebird ODBC Help; Filename: {sys}\OdbcFb.chm; Components: DeveloperComponent
+< #endif
+< ;Name: {group}\Firebird ODBC v2.0 Release Notes; Filename: {app}\ReleaseNotes_v2.0.html; Components: DocumentationComponent
+< Name: {group}\Firebird ODBC readme.txt; Filename: {app}\Readme.txt; Components: DocumentationComponent
+< Name: {group}\Firebird ODBC license.txt; Filename: {app}\IDPLicense.txt; Components: DocumentationComponent
+---
+> Name: {group}\InterBase ODBC Help; Filename: {app}\OdbcIB.chm; Components: DocumentationComponent
+> Name: {group}\InterBase ODBC Help; Filename: {sys}\OdbcIB.chm; Components: DeveloperComponent
+> Name: {app}\InterBase ODBC Help; Filename: {sys}\OdbcIB.chm; Components: DeveloperComponent
+> #endif
+> Name: {group}\InterBase ODBC readme.txt; Filename: {app}\Readme.txt; Components: DocumentationComponent
+> Name: {group}\InterBase ODBC license.txt; Filename: {app}\IDPLicense.txt; Components: DocumentationComponent
+174c176
+< ;Filename: {sys}\regsvr32.exe; Parameters: "/s ""{app}""\OdbcFb.dll"; Components: DeveloperComponent DeploymentComponent
+---
+> ;Filename: {sys}\regsvr32.exe; Parameters: "/s ""{app}""\OdbcIB.dll"; Components: DeveloperComponent DeploymentComponent
+178c180
+< ;Filename: {sys}\regsvr32.exe; Parameters: "/u /s ""{app}""\OdbcFb.dll"; Components: DeveloperComponent DeploymentComponent
+---
+> ;Filename: {sys}\regsvr32.exe; Parameters: "/u /s ""{app}""\OdbcIB.dll"; Components: DeveloperComponent DeploymentComponent
+182c184
+< Type: Files; Name: {sys}\OdbcFb.dll; Components: DeveloperComponent DeploymentComponent
+---
+> Type: Files; Name: {sys}\OdbcIB.dll; Components: DeveloperComponent DeploymentComponent
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Install/Win32/Readme.txt OdbcJdbc/Install/Win32/Readme.txt
+1c1
+< Firebird ODBC Driver v2.0 Readme
+---
+> InterBase ODBC Driver v1.0 Readme
+14c14
+< Welcome to the latest release of the Firebird ODBC driver. This release
+---
+> Welcome to the latest release of the InterBase ODBC driver. This release
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/Attachment.cpp OdbcJdbc/IscDbc/Attachment.cpp
+25a26,30
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              InterBase client library support
+>  *
+>  *
+47d51
+< 	isc_info_firebird_version,
+100,101c104,108
+< 		client = "gds32.dll",
+< 		clientDefault = "fbclient.dll";
+---
+> #ifdef _WIN64
+> 		client = "ibclient64.dll";
+> #else
+> 		client = "gds32.dll";
+> #endif
+104d110
+< 		clientDefault = "libfbclient.so";
+351,388d356
+< 			case isc_info_firebird_version:
+< 				{
+< 					int level = 0;
+< 					char * start = p + 2;
+< 					char * beg = start;
+< 					char * end = beg + p [1];
+< 					
+< 					while ( beg < end )
+< 					{
+< 						if ( *beg >= '0' && *beg <= '9' )
+< 						{
+< 							switch ( ++level )
+< 							{
+< 							case 1:
+< 								majorFb = atoi(beg);
+< 								while( *++beg != '.' );
+< 								break;
+< 							case 2:
+< 								minorFb = atoi(beg);
+< 								while( *++beg != '.' );
+< 								break;
+< 							default:
+< 								versionFb = atoi(beg);
+< 								while( *beg >= '0' && *beg <= '9' || *beg == ' ')
+< 									beg++;
+< 								if ( *beg == '.' )
+< 									break;
+< 								beg = end;
+< 								break;
+< 							}
+< 						}
+< 						else
+< 							beg++;
+< 					}
+< 					databaseProductName = "Firebird";
+< 				}
+< 				break;
+< 
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/Connection.h OdbcJdbc/IscDbc/Connection.h
+30a31,34
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+68c72,74
+< 
+---
+> #ifdef _WIN64
+> #define NAME_CLIENT_SHARE_LIBRARY					"ibclient64.dll"
+> #else
+70c76,77
+< #define NAME_DEFAULT_CLIENT_SHARE_LIBRARY			"fbclient.dll"
+---
+> #endif
+> #define NAME_DEFAULT_CLIENT_SHARE_LIBRARY			NULL
+82c89
+< #define NAME_DEFAULT_CLIENT_SHARE_LIBRARY			"libfbclient.so"
+---
+> #define NAME_DEFAULT_CLIENT_SHARE_LIBRARY			NULL
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscColumnPrivilegesResultSet.cpp OdbcJdbc/IscDbc/IscColumnPrivilegesResultSet.cpp
+18a19,23
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+49,53c54,58
+< 				          "cast (tbl.rdb$owner_name as varchar(31)) as table_schem,"
+< 						  "cast (rfr.rdb$relation_name as varchar(31)) as table_name,"
+< 						  "cast (rfr.rdb$field_name as varchar(31)) as column_name,"
+< 						  "cast (priv.rdb$grantor as varchar(31)) as grantor,"
+< 						  "cast (priv.rdb$user as varchar(31)) as grantee,"
+---
+> 				          "cast (tbl.rdb$owner_name as varchar(67)) as table_schem,"
+> 						  "cast (rfr.rdb$relation_name as varchar(67)) as table_name,"
+> 						  "cast (rfr.rdb$field_name as varchar(67)) as column_name,"
+> 						  "cast (priv.rdb$grantor as varchar(67)) as grantor,"
+> 						  "cast (priv.rdb$user as varchar(67)) as grantee,"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscColumnsResultSet.cpp OdbcJdbc/IscDbc/IscColumnsResultSet.cpp
+31a32,36
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+>  *
+87,89c92,94
+< 				"\tcast (tbl.rdb$owner_name as varchar(31)) as table_schem,\n"		// 2 - VARCHAR
+< 				"\tcast (rfr.rdb$relation_name as varchar(31)) as table_name,\n"	// 3 - VARCHAR NOT NULL
+< 				"\tcast (rfr.rdb$field_name as varchar(31)) as column_name,\n"		// 4 - VARCHAR NOT NULL
+---
+> 				"\tcast (tbl.rdb$owner_name as varchar(67)) as table_schem,\n"		// 2 - VARCHAR
+> 				"\tcast (rfr.rdb$relation_name as varchar(67)) as table_name,\n"	// 3 - VARCHAR NOT NULL
+> 				"\tcast (rfr.rdb$field_name as varchar(67)) as column_name,\n"		// 4 - VARCHAR NOT NULL
+91c96
+< 				"\tcast (fld.rdb$field_name as varchar(31)) as type_name,\n"		// 6 - VARCHAR NOT NULL
+---
+> 				"\tcast (fld.rdb$field_name as varchar(67)) as type_name,\n"		// 6 - VARCHAR NOT NULL
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscCrossReferenceResultSet.cpp OdbcJdbc/IscDbc/IscCrossReferenceResultSet.cpp
+18a19,23
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+60,62c65,67
+< 				" cast (ptbl.rdb$owner_name as varchar(31)) as pktable_schem,\n"	// 2
+< 				" cast (pidx.rdb$relation_name as varchar(31)) as pktable_name,\n"	// 3
+< 				" cast (pseg.rdb$field_name as varchar(31)) as pkcolumn_name,\n"	// 4
+---
+> 				" cast (ptbl.rdb$owner_name as varchar(67)) as pktable_schem,\n"	// 2
+> 				" cast (pidx.rdb$relation_name as varchar(67)) as pktable_name,\n"	// 3
+> 				" cast (pseg.rdb$field_name as varchar(67)) as pkcolumn_name,\n"	// 4
+64,66c69,71
+< 				" cast (ftbl.rdb$owner_name as varchar(31)) as fktable_schem,\n"// 6
+< 				" cast (fidx.rdb$relation_name as varchar(31)) as fktable_name,\n"	// 7
+< 				" cast (fseg.rdb$field_name as varchar(31)) as fkcolumn_name,\n"	// 8
+---
+> 				" cast (ftbl.rdb$owner_name as varchar(67)) as fktable_schem,\n"// 6
+> 				" cast (fidx.rdb$relation_name as varchar(67)) as fktable_name,\n"	// 7
+> 				" cast (fseg.rdb$field_name as varchar(67)) as fkcolumn_name,\n"	// 8
+70,71c75,76
+< 				" cast (fkey.rdb$constraint_name as varchar(31)) as fk_name,\n"		// 12
+< 				" cast (refc.rdb$const_name_uq as varchar(31)) as pk_name,\n"		// 13
+---
+> 				" cast (fkey.rdb$constraint_name as varchar(67)) as fk_name,\n"		// 12
+> 				" cast (refc.rdb$const_name_uq as varchar(67)) as pk_name,\n"		// 13
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscDatabaseMetaData.cpp OdbcJdbc/IscDbc/IscDatabaseMetaData.cpp
+19a20,23
+>  * 28-Jun-2013: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver, QC case 116886
+>  *              Extended Metadata name length
+>  *
+829c833
+< 	return 31;
+---
+> 	return METADATALENGTH-1;
+882c886
+< 	return 31;
+---
+> 	return METADATALENGTH-1;
+913c917
+< 	return 31;
+---
+> 	return METADATALENGTH-1;
+Only in OdbcJdbc/IscDbc: IscDbc.rc
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscIndexInfoResultSet.cpp OdbcJdbc/IscDbc/IscIndexInfoResultSet.cpp
+27c27,34
+<  *				
+---
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+>  * 17-Sep-2012: Contribution by Embarcadero Technologies Inc., and, Alexander Potapchenko
+>  *              Fix for http://qc.embarcadero.com/wc/qcmain.aspx?d=108767
+>  *              Resolve Microsoft Access bug with UTF8 databases
+72,73c79,80
+< 				"\tcast(rl.rdb$owner_name as varchar(31)) as table_schem,\n"	// 2
+< 				"\tcast(rl.rdb$relation_name as varchar(31)) as table_name,\n"	// 3
+---
+> 				"\tcast(rl.rdb$owner_name as varchar(67)) as table_schem,\n"	// 2
+> 				"\tcast(rl.rdb$relation_name as varchar(67)) as table_name,\n"	// 3
+75,76c82,83
+< 				"\tcast(NULL as varchar(31)) as index_qualifier,\n"				// 5
+< 				"\tcast(NULL as varchar(31)) index_name,\n"						// 6
+---
+> 				"\tcast(NULL as varchar(67)) as index_qualifier,\n"				// 5
+> 				"\tcast(NULL as varchar(67)) index_name,\n"						// 6
+79,80c86,87
+< 				"\tcast(NULL as varchar(31)) as column_name,\n"					// 9
+< 				"\tcast(NULL as char) as asc_or_desc,\n"						// 10
+---
+> 				"\tcast(NULL as varchar(67)) as column_name,\n"					// 9
+> 				"\tcast(NULL as char CHARACTER SET NONE) as asc_or_desc,\n"						// 10
+83c90
+< 				"\tcast(NULL as varchar(31)) as filter_condition,\n"			// 13
+---
+> 				"\tcast(NULL as varchar(67)) as filter_condition,\n"			// 13
+85c92
+< 				"\tcast(NULL as varchar(31)) as constraint_type\n"				// 15
+---
+> 				"\tcast(NULL as varchar(67)) as constraint_type\n"				// 15
+91,92c98,99
+< 				"\tcast(tbl.rdb$owner_name as varchar(31)) as table_schem,\n"	// 2
+< 				"\tcast(idx.rdb$relation_name as varchar(31)) as table_name,\n"	// 3
+---
+> 				"\tcast(tbl.rdb$owner_name as varchar(67)) as table_schem,\n"	// 2
+> 				"\tcast(idx.rdb$relation_name as varchar(67)) as table_name,\n"	// 3
+94,95c101,102
+< 				"\tcast(idx.rdb$index_name as varchar(31)) as index_qualifier,\n"	// 5
+< 				"\tcast(idx.rdb$index_name as varchar(31)) as index_name,\n"	// 6
+---
+> 				"\tcast(idx.rdb$index_name as varchar(67)) as index_qualifier,\n"	// 5
+> 				"\tcast(idx.rdb$index_name as varchar(67)) as index_name,\n"	// 6
+98,100c105,106
+< 				"\tcast(coalesce(seg.rdb$field_name,\n" 
+< 				"substring(idx.rdb$expression_source from 1 for 31)) as varchar(31)) as column_name,\n"	// 9
+< 				"\tcast(NULL as char) as asc_or_desc,\n"						// 10
+---
+> 				"\tcast(seg.rdb$field_name as varchar(67)) as column_name,\n"	// 9
+> 				"\tcast(NULL as char CHARACTER SET NONE) as asc_or_desc,\n"						// 10
+102c108
+< 				"1/idx.rdb$statistics end) as integer) as cardinality,\n"		// 11
+---
+> 				"cast(1/idx.rdb$statistics as integer) end) as integer) as cardinality,\n"		// 11
+104c110
+< 				"\tcast(NULL as varchar(31)) as filter_condition,\n"			// 13
+---
+> 				"\tcast(NULL as varchar(67)) as filter_condition,\n"			// 13
+106c112
+< 				"\tcast(relc.rdb$constraint_type as varchar(31)) as constraint_type\n"	// 15
+---
+> 				"\tcast(relc.rdb$constraint_type as varchar(67)) as constraint_type\n"	// 15
+109c115
+< 			"\tleft join rdb$index_segments seg on idx.rdb$index_name = seg.rdb$index_name\n"
+---
+> 			"\tjoin rdb$index_segments seg on idx.rdb$index_name = seg.rdb$index_name\n"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscPrimaryKeysResultSet.cpp OdbcJdbc/IscDbc/IscPrimaryKeysResultSet.cpp
+18a19,23
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+46,48c51,53
+< 				"\tcast (tbl.rdb$owner_name as varchar(31)) as table_schem,\n"		// 2
+< 				"\tcast (rel.rdb$relation_name as varchar(31)) as table_name,\n"	// 3
+< 				"\tcast (seg.rdb$field_name as varchar(31)) as column_name,\n"		// 4
+---
+> 				"\tcast (tbl.rdb$owner_name as varchar(67)) as table_schem,\n"		// 2
+> 				"\tcast (rel.rdb$relation_name as varchar(67)) as table_name,\n"	// 3
+> 				"\tcast (seg.rdb$field_name as varchar(67)) as column_name,\n"		// 4
+50c55
+< 				"\tcast (rel.rdb$constraint_name as varchar(31)) as pk_name\n"		// 6
+---
+> 				"\tcast (rel.rdb$constraint_name as varchar(67)) as pk_name\n"		// 6
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscProcedureColumnsResultSet.cpp OdbcJdbc/IscDbc/IscProcedureColumnsResultSet.cpp
+22a23,27
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+>  *
+89,91c94,96
+< 				"\tcast (p.rdb$owner_name as varchar(31)) as procedure_schem,\n"		// 2
+< 				"\tcast (pp.rdb$procedure_name as varchar(31)) as procedure_name,\n"	// 3
+< 				"\tcast (pp.rdb$parameter_name as varchar(31)) as column_name,\n"		// 4
+---
+> 				"\tcast (p.rdb$owner_name as varchar(67)) as procedure_schem,\n"		// 2
+> 				"\tcast (pp.rdb$procedure_name as varchar(67)) as procedure_name,\n"	// 3
+> 				"\tcast (pp.rdb$parameter_name as varchar(67)) as column_name,\n"		// 4
+94c99
+< 				"\tcast (pp.rdb$procedure_name as varchar(31)) as type_name,\n"			// 7
+---
+> 				"\tcast (pp.rdb$procedure_name as varchar(67)) as type_name,\n"			// 7
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscProceduresResultSet.cpp OdbcJdbc/IscDbc/IscProceduresResultSet.cpp
+18a19,23
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+54,55c59,60
+< 				"\tcast (proc.rdb$owner_name as varchar(31)) as procedure_schem,\n"		// 2
+< 				"\tcast (proc.rdb$procedure_name as varchar(31)) as procedure_name,\n"	// 3
+---
+> 				"\tcast (proc.rdb$owner_name as varchar(67)) as procedure_schem,\n"		// 2
+> 				"\tcast (proc.rdb$procedure_name as varchar(67)) as procedure_name,\n"	// 3
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscSpecialColumnsResultSet.cpp OdbcJdbc/IscDbc/IscSpecialColumnsResultSet.cpp
+20a21,25
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+>  *
+63c68
+< 				"\tcast (rfr.rdb$field_name as varchar(31)) as column_name, \n"	// 2
+---
+> 				"\tcast (rfr.rdb$field_name as varchar(67)) as column_name, \n"	// 2
+65c70
+< 				"\tcast (rfr.rdb$field_name as varchar(31)) as type_name,\n"	// 4
+---
+> 				"\tcast (rfr.rdb$field_name as varchar(67)) as type_name,\n"	// 4
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscTablePrivilegesResultSet.cpp OdbcJdbc/IscDbc/IscTablePrivilegesResultSet.cpp
+19a20,24
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+54,57c59,62
+< 				          "cast (tbl.rdb$owner_name as varchar(31)) as table_schem,"	//2
+< 						  "cast (tbl.rdb$relation_name as varchar(31)) as table_name,"	//3
+< 						  "cast (priv.rdb$grantor as varchar(31)) as grantor,"			//4
+< 						  "cast (priv.rdb$user as varchar(31)) as grantee,"				//5
+---
+> 				          "cast (tbl.rdb$owner_name as varchar(67)) as table_schem,"	//2
+> 						  "cast (tbl.rdb$relation_name as varchar(67)) as table_name,"	//3
+> 						  "cast (priv.rdb$grantor as varchar(67)) as grantor,"			//4
+> 						  "cast (priv.rdb$user as varchar(67)) as grantee,"				//5
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/IscTablesResultSet.cpp OdbcJdbc/IscDbc/IscTablesResultSet.cpp
+18a19,23
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              Extended Metadata name length
+>  *
+62,63c67,68
+< 					  "cast (tbl.rdb$owner_name as varchar(31)) as table_schem,\n"		// 2
+< 					  "cast (tbl.rdb$relation_name as varchar(31)) as table_name,\n"	// 3
+---
+> 					  "cast (tbl.rdb$owner_name as varchar(67)) as table_schem,\n"		// 2
+> 					  "cast (tbl.rdb$relation_name as varchar(67)) as table_name,\n"	// 3
+87,90c92,95
+< 			addString(pt, "' as varchar(31)) as table_cat,\n"	        // 1
+< 				    "cast (NULL as varchar(31)) as table_schem,\n"		// 2
+< 					"cast (NULL as varchar(31)) as table_name,\n"		// 3
+< 					"cast (NULL as varchar(13)) as table_type,\n"		// 4
+---
+> 			addString(pt, "' as varchar(67)) as table_cat,\n"	        // 1
+> 				    "cast (NULL as varchar(67)) as table_schem,\n"		// 2
+> 					"cast (NULL as varchar(67)) as table_name,\n"		// 3
+> 					"cast (NULL as varchar(67)) as table_type,\n"		// 4
+105,106c110,111
+< 			        "cast (tbl.rdb$owner_name as varchar(31)) as table_schem,\n" // 2
+< 					"cast (NULL as varchar(31)) as table_name,\n"				 // 3
+---
+> 			        "cast (tbl.rdb$owner_name as varchar(67)) as table_schem,\n" // 2
+> 					"cast (NULL as varchar(67)) as table_name,\n"				 // 3
+120,121c125,126
+< 				    "cast (NULL as varchar(31)) as table_schem,\n"			// 2
+< 					"cast (NULL as varchar(31)) as table_name,\n"			// 3
+---
+> 				    "cast (NULL as varchar(67)) as table_schem,\n"			// 2
+> 					"cast (NULL as varchar(67)) as table_name,\n"			// 3
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/JavaType.h OdbcJdbc/IscDbc/JavaType.h
+17a18,22
+>  *
+>  * 14-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              InterBase BOOLEAN datatype fixes (QC 107896)
+>  *
+58c63
+< #define JDBC_BOOLEAN	  16
+---
+> #define JDBC_BOOLEAN	  -7
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/ServiceManager.cpp OdbcJdbc/IscDbc/ServiceManager.cpp
+18a19,23
+>  *
+>  * 10-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              "Statistics" now works for EUA databases
+>  *
+285,289d289
+< 	spbLength = spb - spbBuffer;
+< 
+< 	if ( !GDS )
+< 		loadShareLibrary();
+< 
+303a304,314
+> 	// Add authentication database for InterBase EUA databases
+> 	param = properties->findValue( SETUP_DBNAME, NULL );
+> 	if ( isServer )
+> 		while ( *param++ != ':' );
+> 	ADD_PARAM_STRING_LEN8( spb, isc_spb_user_dbname, param );
+> 
+> 	spbLength = spb - spbBuffer;
+> 
+> 	if ( !GDS )
+> 		loadShareLibrary();
+> 
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/Sqlda.cpp OdbcJdbc/IscDbc/Sqlda.cpp
+19a20,23
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+366c370
+< 	sqlda->version = SQLDA_VERSION1;
+---
+> 	sqlda->version = SQLDA_CURRENT_VERSION;
+410c414
+< 	sqlda->version = SQLDA_VERSION1;
+---
+> 	sqlda->version = SQLDA_CURRENT_VERSION;
+654c658
+< // Return SQLDA for all system field has 31 length 
+---
+> // Return SQLDA for all system field has (METADATALENGTH -1) length 
+1010a1015
+> 	var->sqlprecision = 0;
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/Sqlda.h OdbcJdbc/IscDbc/Sqlda.h
+14a15,18
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+47c51,55
+< 		*(QUAD*)this = *(QUAD*)var;
+---
+> 		sqltype = var->sqltype;
+> 		sqlscale = var->sqlscale;
+> 		sqlprecision = var->sqlprecision;
+> 		sqlsubtype = var->sqlsubtype;
+> 		sqllen = var->sqllen; 
+52a61
+> 	short			sqlprecision;		/* precision : Reserved for future */
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/IscDbc/extodbc.cpp OdbcJdbc/IscDbc/extodbc.cpp
+100d99
+< 		isc_info_wal_grpc_wait_usecs,
+164,168d162
+< 		case isc_info_wal_grpc_wait_usecs:
+< 			value_out = GDS->_vax_integer(d, length);
+< 			print_set(set_used,info,len);
+< 			len = sprintf(info,"GROUP_COMMIT_WAIT_TIME = %ld",value_out);
+< 			break;
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcConvert.cpp OdbcJdbc/OdbcConvert.cpp
+18a19,23
+>  *
+>  * 14-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              InterBase BOOLEAN datatype fixes (QC 107896)
+>  *
+138,141d142
+< 		if ( to->isIndicatorSqlDa )
+< 			return &OdbcConvert::transferStringToAllowedType;
+< 		break;
+< 
+146a148
+> 		case SQL_C_BIT:
+190a193
+> 		case SQL_C_BIT:
+243a247
+> 		case SQL_C_BIT:
+290a295
+> 		case SQL_C_BIT:
+322a328
+> 		case SQL_C_BIT:
+358a365
+> 		case SQL_C_BIT:
+400a408
+> 		case SQL_C_BIT:
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcDesc.cpp OdbcJdbc/OdbcDesc.cpp
+24a25,28
+>  * 14-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              InterBase BOOLEAN datatype fixes (QC 107896)
+>  *
+1296a1301
+> 	case JDBC_BOOLEAN:
+1300d1304
+< 	case JDBC_BOOLEAN:
+1403a1408
+> 	case JDBC_BOOLEAN:
+1407d1411
+< 	case JDBC_BOOLEAN:
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcEnv.cpp OdbcJdbc/OdbcEnv.cpp
+21a22,25
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+433c437
+< 		if ( strstr(bufferDrv, "*.fdb") || strstr(bufferDrv, "*.gdb") )
+---
+> 		if ( strstr(bufferDrv, "*.ib") || strstr(bufferDrv, "*.gdb") )
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcError.cpp OdbcJdbc/OdbcError.cpp
+14a15,18
+>  *
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+31c35
+< #define LABEL_ODBC				"[ODBC Firebird Driver]";
+---
+> #define LABEL_ODBC				"[ODBC InterBase Driver]";
+515c519
+< 		msg += "[Firebird]";
+---
+> 		msg += "[InterBase]";
+548c552
+< SQLRETURN OdbcError::sqlGetDiagRec(UCHAR * stateBuffer, SDWORD * nativeCodePtr, UCHAR * msgBuffer, int msgBufferLength, SWORD * msgLength)
+---
+> SQLRETURN OdbcError::sqlGetDiagRec(UCHAR * stateBuffer, SQLINTEGER * nativeCodePtr, UCHAR * msgBuffer, int msgBufferLength, SWORD * msgLength)
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcError.h OdbcJdbc/OdbcError.h
+42c42
+< 	SQLRETURN sqlGetDiagRec (UCHAR *stateBuffer, SDWORD *nativeCode, UCHAR *msgBuffer, int msgBufferLength, SWORD *msgLength);
+---
+> 	SQLRETURN sqlGetDiagRec (UCHAR *stateBuffer, SQLINTEGER *nativeCode, UCHAR *msgBuffer, int msgBufferLength, SWORD *msgLength);
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbc.rc OdbcJdbc/OdbcJdbc.rc
+25c25
+< 2 24 MOVEABLE PURE "OdbcFb.dll.manifest"
+---
+> 2 24 MOVEABLE PURE "OdbcIb.dll.manifest"
+53c53
+<             VALUE "CompanyName", "Firebird Project\0"
+---
+>             VALUE "CompanyName", "Embarcadero Technologies, Inc.\0"
+59c59
+<             VALUE "ProductName", "Firebird Odbc Dynamic Link Library\0"
+---
+>             VALUE "ProductName", "Interbase Odbc Dynamic Link Library\0"
+61c61
+<             VALUE "SpecialBuild", "v2-0\0"
+---
+>             VALUE "SpecialBuild", "v1-0\0"
+79c79
+< CAPTION "Firebird ODBC Connect"
+---
+> CAPTION "Interbase ODBC Connect"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/DsnDialog.cpp OdbcJdbc/OdbcJdbcSetup/DsnDialog.cpp
+14a15,18
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+102c106
+< BOOL CALLBACK wndprocDsnDialog( HWND hDlg, UINT message, WORD wParam, LONG lParam);
+---
+> BOOL CALLBACK wndprocDsnDialog( HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+395c399
+< 	char * szOpenFilter =	"Firebird Database Files (*.fdb;*.gdb)\0*.fdb;*.gdb\0"
+---
+> 	char * szOpenFilter =	"InterBase Database Files (*.ib;*.gdb)\0*.ib;*.gdb\0"
+420c424
+<     ofn.lpstrTitle = _TR( IDS_DLG_TITLE_FINDFILE_DATABASE, "Select Firebird database" );
+---
+>     ofn.lpstrTitle = _TR( IDS_DLG_TITLE_FINDFILE_DATABASE, "Select InterBase database" );
+422c426
+<     ofn.lpstrDefExt = "*.fdb";
+---
+>     ofn.lpstrDefExt = "*.ib";
+465c469
+< 	char * szOpenFilter =	"Firebird Client Files (*.dll)\0*.dll\0"
+---
+> 	char * szOpenFilter =	"InterBase Client Files (*.dll)\0*.dll\0"
+483c487
+<     ofn.lpstrTitle = _TR( IDS_DLG_TITLE_FINDFILE_CLIENT, "Select Firebird client" );
+---
+>     ofn.lpstrTitle = _TR( IDS_DLG_TITLE_FINDFILE_CLIENT, "Select InterBase client" );
+571c575
+< BOOL CALLBACK wndprocDsnDialog( HWND hDlg, UINT message, WORD wParam, LONG lParam )
+---
+> BOOL CALLBACK wndprocDsnDialog( HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam )
+573c577
+< 	CDsnDialog *dsnDialog = (CDsnDialog *)GetWindowLong( hDlg, GW_USERDATA );
+---
+> 	CDsnDialog *dsnDialog = (CDsnDialog *)GetWindowLongPtr( hDlg, GW_USERDATA );
+579c583
+< 	    SetWindowLong( hDlg, GW_USERDATA, (ULONG)lParam ); 
+---
+> 	    SetWindowLongPtr( hDlg, GW_USERDATA, lParam ); 
+814c818
+< 	MessageBox( hWnd, stringID, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Setup" ) ), MB_OK );
+---
+> 	MessageBox( hWnd, stringID, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Setup" ) ), MB_OK );
+831c835
+< 	*p++ = 42;         // NumberOfItems
+---
+> 	*p++ = 37;         // NumberOfItems
+841c845
+< 	nchar = nCopyAnsiToWideChar (p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Setup" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar (p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Setup" ) ) );
+849c853
+<     TMP_COMBOBOX      ( IDC_DRIVER,196,12,107,47,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP )
+---
+>  //   TMP_COMBOBOX      ( IDC_DRIVER,196,12,107,47,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP )
+862,863c866,867
+<     TMP_EDITTEXT      ( IDC_LOCKTIMEOUT,24,188,23,10,ES_AUTOHSCROLL )
+<     TMP_LTEXT         ( _TR( IDS_STATIC_LOCKTIMEOUT, "Lock Timeout" ), IDC_STATIC_LOCKTIMEOUT,50,189,86,8 )
+---
+> //    TMP_EDITTEXT      ( IDC_LOCKTIMEOUT,24,188,23,10,ES_AUTOHSCROLL )
+> //    TMP_LTEXT         ( _TR( IDS_STATIC_LOCKTIMEOUT, "Lock Timeout" ), IDC_STATIC_LOCKTIMEOUT,50,189,86,8 )
+870c874
+<     TMP_LTEXT         ( _TR( IDS_STATIC_DRIVER, "Driver" ), IDC_STATIC,197,2,103,8 )
+---
+> //    TMP_LTEXT         ( _TR( IDS_STATIC_DRIVER, "Driver" ), IDC_STATIC,197,2,103,8 )
+881c885
+<     TMP_BUTTONCONTROL ( _TR( IDS_CHECK_SFTHREAD, "safe thread" ), IDC_CHECK_SFTHREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,214,136,10 )
+---
+> //    TMP_BUTTONCONTROL ( _TR( IDS_CHECK_SFTHREAD, "safe thread" ), IDC_CHECK_SFTHREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,214,136,10 )
+891c895
+< 	intptr_t nRet = DialogBoxIndirectParam(m_hInstance, (LPDLGTEMPLATE) pdlgtemplate, m_hWndParent, (DLGPROC)wndprocDsnDialog, (uintptr_t)this );
+---
+> 	intptr_t nRet = DialogBoxIndirectParam(m_hInstance, (LPDLGTEMPLATE) pdlgtemplate, m_hWndParent, (DLGPROC)wndprocDsnDialog, (LPARAM)this );
+Only in OdbcJdbc/OdbcJdbcSetup: OdbcJdbcSetup.rc
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/ServiceTabBackup.cpp OdbcJdbc/OdbcJdbcSetup/ServiceTabBackup.cpp
+14a15,18
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+103c107
+< BOOL CALLBACK wndproCServiceTabBackup( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCServiceTabBackup( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+106c110
+< 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+246c250
+< 		sprintf(buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 		sprintf(buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+255,256c259,260
+< 	char * szCaption    = "Select Firebird backup file";
+< 	char * szOpenFilter = "Firebird Backup Files (*.fbk;*.gbk)\0*.fbk;*.gbk\0"
+---
+> 	char * szCaption    = "Select InterBase backup file";
+> 	char * szOpenFilter = "InterBase Backup Files (*.ibk;*.gbk)\0*.ibk;*.gbk\0"
+259c263
+< 	char * szDefExt     = "*.fbk";
+---
+> 	char * szDefExt     = "*.gbk";
+269c273
+< 		setDefaultName( "fbk", backupPathFile );
+---
+> 		setDefaultName( "gbk", backupPathFile );
+304c308
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/ServiceTabChild.cpp OdbcJdbc/OdbcJdbcSetup/ServiceTabChild.cpp
+14a15,18
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+70c74
+< 	GetTempFileName( bufferTmpDir, "OFB", 0, bufferTmpFileName );
+---
+> 	GetTempFileName( bufferTmpDir, "OIB", 0, bufferTmpFileName );
+264c268
+< 	char * szOpenFilter =	"Firebird Database Files (*.fdb;*.gdb)\0*.fdb;*.gdb\0"
+---
+> 	char * szOpenFilter =	"InterBase Database Files (*.ib;*.gdb)\0*.ib;*.gdb\0"
+289c293
+<     ofn.lpstrTitle = _TR( IDS_DLG_TITLE_FINDFILE_DATABASE, "Select Firebird database" );
+---
+>     ofn.lpstrTitle = _TR( IDS_DLG_TITLE_FINDFILE_DATABASE, "Select InterBase database" );
+291c295
+<     ofn.lpstrDefExt = "*.fdb";
+---
+>     ofn.lpstrDefExt = "*.ib";
+453c457
+< 			"<TITLE>OdbcFb log file</TITLE>"
+---
+> 			"<TITLE>OdbcIB log file</TITLE>"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/ServiceTabCtrl.cpp OdbcJdbc/OdbcJdbcSetup/ServiceTabCtrl.cpp
+14a15,18
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+108c112
+<     SetWindowLong( hWndTab, GW_USERDATA, (intptr_t)&tabData ); 
+---
+>     SetWindowLongPtr( hWndTab, GW_USERDATA, (intptr_t)&tabData ); 
+114c118
+< BOOL CALLBACK wndproCServiceTabCtrl( HWND hDlg, UINT message, WORD wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCServiceTabCtrl( HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam )
+120c124
+< 	    SetWindowLong( hDlg, GW_USERDATA, (ULONG)lParam ); 
+---
+> 	    SetWindowLongPtr( hDlg, GW_USERDATA, lParam ); 
+137c141
+< 				CServiceTabCtrl *serviceTabCtrl = (CServiceTabCtrl*)GetWindowLong( hDlg, GW_USERDATA );
+---
+> 				CServiceTabCtrl *serviceTabCtrl = (CServiceTabCtrl*)GetWindowLongPtr( hDlg, GW_USERDATA );
+151c155
+< 				PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLong( hWndTab, GW_USERDATA );
+---
+> 				PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLongPtr( hWndTab, GW_USERDATA );
+201c205
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+211c215
+< 	intptr_t nRet = DialogBoxIndirectParam( m_hInstance, (LPDLGTEMPLATE) pdlgtemplate, hWndParent, (DLGPROC)wndproCServiceTabCtrl, (uintptr_t)this );
+---
+> 	intptr_t nRet = DialogBoxIndirectParam( m_hInstance, (LPDLGTEMPLATE) pdlgtemplate, hWndParent, (DLGPROC)wndproCServiceTabCtrl, (LPARAM)this );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/ServiceTabRepair.cpp OdbcJdbc/OdbcJdbcSetup/ServiceTabRepair.cpp
+14a15,18
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+105c109
+< BOOL CALLBACK wndproCServiceTabRepairChild( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCServiceTabRepairChild( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+108c112
+< 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+229c233
+< 			services.startRepairDatabase( repairParameters, enIgnoreChecksum );
+---
+> 			services.startRepairDatabase( repairParameters, 0 );
+313c317
+< 		sprintf(buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 		sprintf(buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+358c362
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/ServiceTabRestore.cpp OdbcJdbc/OdbcJdbcSetup/ServiceTabRestore.cpp
+14a15,20
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *              InterBase supports 1/2/4/8/16KB page size only
+>  *              Default restore page size is 4KB for InterBase
+>  *
+>  *
+116c122
+< BOOL CALLBACK wndproCServiceTabRestoreChild( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCServiceTabRestoreChild( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+119c125
+< 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+137c143
+< 				for ( int i = 0; i < 6; i++ )
+---
+> 				for ( int i = 0; i < 5; i++ )
+142c148
+< 				SendMessage( hWndBox, CB_SETCURSEL, 3, 0 ); // 8192
+---
+> 				SendMessage( hWndBox, CB_SETCURSEL, 2, 0 ); // 4096
+275c281
+< 		sprintf(buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 		sprintf(buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+284,285c290,291
+< 	char * szCaption    = "Select Firebird backup file";
+< 	char * szOpenFilter = "Firebird Backup Files (*.fbk;*.gbk)\0*.fbk;*.gbk\0"
+---
+> 	char * szCaption    = "Select InterBase backup file";
+> 	char * szOpenFilter = "InterBase Backup Files (*.ibk;*.gbk)\0*.ibk;*.gbk\0"
+288c294
+< 	char * szDefExt     = "*.fbk";
+---
+> 	char * szDefExt     = "*.gbk";
+298c304
+< 		setDefaultName( "fbk", backupPathFile );
+---
+> 		setDefaultName( "gbk", backupPathFile );
+334c340
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/ServiceTabStatistics.cpp OdbcJdbc/OdbcJdbcSetup/ServiceTabStatistics.cpp
+18a19,23
+>  *
+>  * 10-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *      Changes for InterBase ODBC driver
+>  *      "Statistics" dialog changes to show "Log page" and "Show interbase.log"
+>  *
+91c96
+< BOOL CALLBACK wndproCServiceTabStatisticChild( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCServiceTabStatisticChild( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+94c99
+< 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+231c236
+< 		sprintf(buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 		sprintf(buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+276c281
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+294,295c299,300
+<     TMP_RADIOCONTROL  ( "Database log",IDC_RADIO_DATABASE_LOG, "Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,113,130,10 )
+<     TMP_RADIOCONTROL  ( "Show Database log",IDC_RADIO_SHOW_DATABASE_LOG, "Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,129,130,10 )
+---
+>     TMP_RADIOCONTROL  ( "Log page",IDC_RADIO_DATABASE_LOG, "Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,113,130,10 )
+>     TMP_RADIOCONTROL  ( "Show interbase.log",IDC_RADIO_SHOW_DATABASE_LOG, "Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,129,130,10 )
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/ServiceTabUsers.cpp OdbcJdbc/OdbcJdbcSetup/ServiceTabUsers.cpp
+90c90
+<     SetWindowLong( hWndTab, GW_USERDATA, (intptr_t)&tabData ); 
+---
+>     SetWindowLongPtr( hWndTab, GW_USERDATA, (intptr_t)&tabData ); 
+96c96
+< BOOL CALLBACK wndproCServiceTabUsersChild( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCServiceTabUsersChild( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+99c99
+< 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PTAG_DIALOG_HEADER tabData = (PTAG_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+132c132
+< 				PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLong( hWndTab, GW_USERDATA );
+---
+> 				PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLongPtr( hWndTab, GW_USERDATA );
+220c220
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/Setup.cpp OdbcJdbc/OdbcJdbcSetup/Setup.cpp
+1072c1072
+< 					sprintf( buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 					sprintf( buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+1132c1132
+< 					sprintf( buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 					sprintf( buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+1172c1172
+< 					sprintf( buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 					sprintf( buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+1342c1342
+< 					sprintf( buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 					sprintf( buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+1402c1402
+< 					sprintf( buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 					sprintf( buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+1442c1442
+< 					sprintf( buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 					sprintf( buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/UserDialog.cpp OdbcJdbc/OdbcJdbcSetup/UserDialog.cpp
+145c145
+< BOOL CALLBACK wndproCUserDialog( HWND hDlg, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCUserDialog( HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam )
+151c151
+< 	    SetWindowLong( hDlg, GW_USERDATA, (ULONG)lParam ); 
+---
+> 	    SetWindowLongPtr( hDlg, GW_USERDATA, lParam ); 
+168c168
+< 				CUserDialog *dlg = (CUserDialog*)GetWindowLong( hDlg, GW_USERDATA );
+---
+> 				CUserDialog *dlg = (CUserDialog*)GetWindowLongPtr( hDlg, GW_USERDATA );
+209c209
+< 	sprintf( bufHeader, "%s(%s)", TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ), headerDlg );
+---
+> 	sprintf( bufHeader, "%s(%s)", TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ), headerDlg );
+236c236
+< 	intptr_t nRet = DialogBoxIndirectParam( m_hInstance, (LPDLGTEMPLATE) pdlgtemplate, parent->hDlg, (DLGPROC)wndproCUserDialog, (uintptr_t)this );
+---
+> 	intptr_t nRet = DialogBoxIndirectParam( m_hInstance, (LPDLGTEMPLATE) pdlgtemplate, parent->hDlg, (DLGPROC)wndproCUserDialog, (LPARAM)this );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/UsersTabMemberShips.cpp OdbcJdbc/OdbcJdbcSetup/UsersTabMemberShips.cpp
+86c86
+< BOOL CALLBACK wndproCUsersTabMemberShips( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCUsersTabMemberShips( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+89c89
+< 	PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+159c159
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/UsersTabRoles.cpp OdbcJdbc/OdbcJdbcSetup/UsersTabRoles.cpp
+81c81
+< BOOL CALLBACK wndproCUsersTabRoles( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCUsersTabRoles( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+84c84
+< 	PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+154c154
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/UsersTabUsers.cpp OdbcJdbc/OdbcJdbcSetup/UsersTabUsers.cpp
+130c130
+< BOOL CALLBACK wndproCUsersTabUsers( HWND hWndChildTab, UINT message, UINT wParam, LONG lParam )
+---
+> BOOL CALLBACK wndproCUsersTabUsers( HWND hWndChildTab, UINT message, WPARAM wParam, LPARAM lParam )
+133c133
+< 	PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLong( hWndParent, GW_USERDATA );
+---
+> 	PUSERS_DIALOG_HEADER tabData = (PUSERS_DIALOG_HEADER)GetWindowLongPtr( hWndParent, GW_USERDATA );
+317c317
+< 		sprintf(buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 		sprintf(buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+408c408
+< 		sprintf(buffer, "sqlcode %d, fbcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+---
+> 		sprintf(buffer, "sqlcode %d, ibcode %d - %s", exception.getSqlcode(), exception.getFbcode(), (const char*)text );
+455c455
+< 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "Firebird ODBC Service" ) ) );
+---
+> 	nchar = nCopyAnsiToWideChar( p, TEXT( _TR( IDS_DLG_TITLE_SETUP, "InterBase ODBC Service" ) ) );
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/res/resource.en OdbcJdbc/OdbcJdbcSetup/res/resource.en
+3,4c3,4
+< IDS_DLG_TITLE_SETUP, // "Firebird ODBC Setup"
+< 	"Firebird ODBC Setup"
+---
+> IDS_DLG_TITLE_SETUP, // "InterBase ODBC Setup"
+> 	"InterBase ODBC Setup"
+75,76c75,76
+< IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select Firebird database"
+< 	"Select Firebird database"
+---
+> IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select InterBase database"
+> 	"Select InterBase database"
+78,79c78,79
+< IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select Firebird client"
+< 	"Select Firebird client"
+---
+> IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select InterBase client"
+> 	"Select InterBase client"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/res/resource.es OdbcJdbc/OdbcJdbcSetup/res/resource.es
+3,4c3,4
+< IDS_DLG_TITLE_SETUP, // "Firebird ODBC Setup"
+< 	"Configuraciуn de ODBC Firebird"
+---
+> IDS_DLG_TITLE_SETUP, // "InterBase ODBC Setup"
+> 	"Configuraciуn de ODBC InterBase"
+75,76c75,76
+< IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select Firebird database"
+< 	"Seleccionar base de datos Firebird"
+---
+> IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select InterBase database"
+> 	"Seleccionar base de datos InterBase"
+78,79c78,79
+< IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select Firebird client"
+< 	"Seleccionar cliente Firebird"
+---
+> IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select InterBase client"
+> 	"Seleccionar cliente InterBase"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/res/resource.it OdbcJdbc/OdbcJdbcSetup/res/resource.it
+3,4c3,4
+< IDS_DLG_TITLE_SETUP, // "Firebird ODBC Setup"
+< 	"Impostazioni per ODBC Firebird"
+---
+> IDS_DLG_TITLE_SETUP, // "InterBase ODBC Setup"
+> 	"Impostazioni per ODBC InterBase"
+75,76c75,76
+< IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select Firebird database"
+< 	"Selezionare il database Firebird"
+---
+> IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select InterBase database"
+> 	"Selezionare il database InterBase"
+78,79c78,79
+< IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select Firebird client"
+< 	"Selezionare la libreria client per Firebird"
+---
+> IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select InterBase client"
+> 	"Selezionare la libreria client per InterBase"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/res/resource.ru OdbcJdbc/OdbcJdbcSetup/res/resource.ru
+3,4c3,4
+< IDS_DLG_TITLE_SETUP, // "Firebird ODBC Setup"
+< 	"Firebird ODBC Конфигуратор"
+---
+> IDS_DLG_TITLE_SETUP, // "InterBase ODBC Setup"
+> 	"InterBase ODBC Конфигуратор"
+75,76c75,76
+< IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select Firebird database"
+< 	"Выбор Firebird базы данных"
+---
+> IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select InterBase database"
+> 	"Выбор InterBase базы данных"
+78,79c78,79
+< IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select Firebird client"
+< 	"Выбор Firebird клиента"
+---
+> IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select InterBase client"
+> 	"Выбор InterBase клиента"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcJdbcSetup/res/resource.uk OdbcJdbc/OdbcJdbcSetup/res/resource.uk
+3,4c3,4
+< IDS_DLG_TITLE_SETUP, // "Firebird ODBC Setup"
+< 	"Firebird ODBC Конфiгурування"
+---
+> IDS_DLG_TITLE_SETUP, // "InterBase ODBC Setup"
+> 	"InterBase ODBC Конфiгурування"
+75,76c75,76
+< IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select Firebird database"
+< 	"Вказати розмiщення Firebird бази даних"
+---
+> IDS_DLG_TITLE_FINDFILE_DATABASE, // "Select InterBase database"
+> 	"Вказати розмiщення InterBase бази даних"
+78,79c78,79
+< IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select Firebird client"
+< 	"Вказати розмiщення Firebird клiєнтської бiблiотеки"
+---
+> IDS_DLG_TITLE_FINDFILE_CLIENT, // "Select InterBase client"
+> 	"Вказати розмiщення InterBase клiєнтської бiблiотеки"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcObject.cpp OdbcJdbc/OdbcObject.cpp
+193c193
+< SQLRETURN OdbcObject::sqlError(UCHAR * stateBuffer, SDWORD * nativeCode, UCHAR * msgBuffer, int msgBufferLength, SWORD * msgLength)
+---
+> SQLRETURN OdbcObject::sqlError(UCHAR * stateBuffer, SQLINTEGER * nativeCode, UCHAR * msgBuffer, int msgBufferLength, SWORD * msgLength)
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/OdbcObject.h OdbcJdbc/OdbcObject.h
+64c64
+< 	virtual SQLRETURN sqlError (UCHAR *stateBuffer, SDWORD *nativeCode, UCHAR *msgBuffer, int msgBufferLength, SWORD *msgLength);
+---
+> 	virtual SQLRETURN sqlError (UCHAR *stateBuffer, SQLINTEGER *nativeCode, UCHAR *msgBuffer, int msgBufferLength, SWORD *msgLength);
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Res/resource.en OdbcJdbc/Res/resource.en
+3,4c3,4
+< IDS_DLG_TITLE_CONNECT, // "Firebird ODBC Connect"
+< 	"Firebird ODBC Connect"
+---
+> IDS_DLG_TITLE_CONNECT, // "InterBase ODBC Connect"
+> 	"InterBase ODBC Connect"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Res/resource.es OdbcJdbc/Res/resource.es
+3,4c3,4
+< IDS_DLG_TITLE_CONNECT, // "Firebird ODBC Connect"
+< 	"Conexiуn Firebird ODBC"
+---
+> IDS_DLG_TITLE_CONNECT, // "InterBase ODBC Connect"
+> 	"Conexiуn InterBase ODBC"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Res/resource.it OdbcJdbc/Res/resource.it
+3,4c3,4
+< IDS_DLG_TITLE_CONNECT, // "Firebird ODBC Connect"
+< 	"Connessione ODBC a Firebird"
+---
+> IDS_DLG_TITLE_CONNECT, // "InterBase ODBC Connect"
+> 	"Connessione ODBC a InterBase"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Res/resource.ru OdbcJdbc/Res/resource.ru
+3,4c3,4
+< IDS_DLG_TITLE_CONNECT, // "Firebird ODBC Connect"
+< 	"Firebird ODBC Соединение"
+---
+> IDS_DLG_TITLE_CONNECT, // "InterBase ODBC Connect"
+> 	"InterBase ODBC Соединение"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/Res/resource.uk OdbcJdbc/Res/resource.uk
+3,4c3,4
+< IDS_DLG_TITLE_CONNECT, // "Firebird ODBC Connect"
+< 	"Firebird ODBC З'єднання"
+---
+> IDS_DLG_TITLE_CONNECT, // "InterBase ODBC Connect"
+> 	"InterBase ODBC З'єднання"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/SetupAttributes.h OdbcJdbc/SetupAttributes.h
+14a15,18
+>  * 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
+>  *              Changes for InterBase ODBC driver
+>  *
+>  *
+29c33
+< #define MAJOR_VERSION 		2
+---
+> #define MAJOR_VERSION 		1
+31c35
+< #define REVNO_VERSION 		1
+---
+> #define REVNO_VERSION 		0
+39,40c43,44
+< #define DRIVER_FULL_NAME	"Firebird/InterBase(r) driver"
+< #define DRIVER_NAME			"OdbcFb"
+---
+> #define DRIVER_FULL_NAME	"InterBase ODBC driver"
+> #define DRIVER_NAME			"OdbcIB"
+51c55
+< #define VALUE_FILE_EXT		"*.fdb,*.gdb"
+---
+> #define VALUE_FILE_EXT		"*.ib,*.gdb"
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/TestInstall/TestInstall.cpp OdbcJdbc/TestInstall/TestInstall.cpp
+14c14
+< }
+\ No newline at end of file
+---
+> }
+diff -r --strip-trailing-cr OdbcFb-Source-2.0.1.152/WriteBuildNo.h OdbcJdbc/WriteBuildNo.h
+4c4
+< #define BUILDNUM_VERSION		152
+---
+> #define BUILDNUM_VERSION		101

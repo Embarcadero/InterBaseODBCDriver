@@ -1,0 +1,199 @@
+<!--  
+ *     The contents of this file are subject to the Initial 
+ *     Developer's Public License Version 1.0 (the "License"); 
+ *     you may not use this file except in compliance with the 
+ *     License. You may obtain a copy of the License at 
+ *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl
+ *
+ *     Software distributed under the License is distributed on 
+ *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
+ *     express or implied.  See the License for the specific 
+ *     language governing rights and limitations under the License.
+ *
+ *
+ *  The Original Code was created by Vladimir Tsvigun for IBPhoenix.
+ *
+ *  Copyright (c) 2004 Vladimir Tsvigun
+ *  All Rights Reserved.
+ *
+ *  This translation and editing was done by Paul Beach of IBPhoenix
+ *
+ *  08-Aug-2012: Contributions by Embarcadero Technologies, Inc.
+ *      Changes for InterBase ODBC driver
+ *
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>InterBase ODBC Configuration</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<P><A NAME="hid_fb_odbc_configuration"></A><h1>InterBase ODBC Configuration Parameters</h1></P>
+
+<P>Are used to define the connection parameters to a database.
+The dialog box contains the parameters that correspond to the
+<A HREF="ConnectionAttributes.htm">connection attributes</A></P>
+
+<P><B>Data Source Name (DSN)</B></P>
+
+	<P>Required.<BR>
+	Unique name of Server Type<BR>
+	<CODE>Example</CODE>: ConnectIBServer</P>
+
+<P><B>Description</B></P>
+
+	<P>Not Required.<BR>
+	A more detailed description of the data source.</P>
+
+<P><B>Database</B></P>
+
+	<P>Required.<BR>
+	Specify the location of a database, locally, remotely or via an alias.<BR>
+	See <A HREF="ConnectionExamples.htm#IND_DBNAME">examples</A></P>
+
+<P><B>Client</B></P>
+<P>Required when using InterBase ToGo edition. Optional when using Server or Desktop editions. Current possible values: <BR>
+<UL>gds32.dll - InterBase 32 bit client </UL>
+<UL>ibclient64.dll - InterBase 64 bit client </UL>
+<UL>ibtogo.dll - InterBase 32 bit ToGo </UL>
+<UL>ibtogo64.dll - InterBase 64 bit ToGo</UL>
+
+	</P>
+
+<P><B>Database Account</B></P>
+
+	<P>Not Required.<BR>
+	The user name to be used when connecting to a InterBase database.
+	If not used, ODBC will prompt you for a user ID 
+	(<B>UID</B> or <B>USER</B>) when connecting to the data source.</P>
+
+<P><B>Password</B></P>
+
+	<P>Not Required.<BR>
+	The password to be used with the User ID when connecting to a InterBase
+	database. If not used, ODBC will prompt you for a password ( <B>PWD</B>
+	or <B>PASSWORD</B> ) when connecting to the data source.
+	If used the password is automatically encrypted and saved in odbc.ini.
+	Setting the password here should not be a security risk.</P>
+
+<P><B>Role</B></P>
+
+	<P>Not Required.<BR>
+	Rules:<BR>
+		1. If defined, but login is SYSDBA, role ignored is used.<BR>
+		2. If defined, and login is not SYSDBA, login ignored is used.</P>
+
+<P><B>Character Set</B></P>
+
+	<P>Not Required.<BR>
+	Set the default character set.</P>
+
+<P><B>Options</B></P>
+	<UL>
+	<B>Transaction</B><BR>
+	Specify a transaction type when connecting to a InterBase database
+	        <UL>
+		<P><B>Read (default write)</B><BR>
+
+		Write: Access the database in Read/Write mode.<BR>
+		Read: Access the database in Read Only mode.</P>
+
+		<P><B>Nowait (default wait)</B><BR>
+
+		Wait: The transaction will wait if it encounters a lock conflict.<BR>
+		Nowait: The transaction will immediately return an error if it
+		encounters a lock conflict.</P>
+		</UL>
+	<P><B>Dialect</B></P>
+
+	<P>Typically 1 or 3, SQL dialects were introduced in InterBase 6.0,
+	to support a number of new SQL features including delimted
+	identifiers. Valid dialects are:
+		<UL>
+		1 - Parser processes as it did in InterBase V5.<BR>
+		2 - Transitional flagger. InterBaseV6, and InterBase flags
+		ambiguous SQL  constructs and issues an error or warning message.<BR>
+		3 - Parser processes anything delimited by single quotes as
+		string constants and any thing delimited by double quotes as SQL 
+		delimited identifiers</UL></P>
+
+	<P><B>Quoted Identifier</B></P>
+
+		<P>This option ensures compatibility with databases created in dialect 1 </P>
+
+	<P><B>Sensitive Identifier</B></P>
+
+		<P>This option changes the property of SQL_IDENTIFIER_CASE
+		(Default SQL_IC_UPPER, select SQL_IC_UPPER or SQL_IC_SENSITIVE)</P>
+
+	<P><B>Autoquoted Identifier</B></P>
+
+		<P>default NO (select YES or NO)<BR>
+		Should change from
+			<UL>
+			SELECT A.Test_Field FROM Mixed_Caps_Table A<BR>
+			ORDER BY A.Test_Field</UL>
+		to
+			<UL>
+			SELECT A."Test_Field" FROM "Mixed_Caps_Table" A<BR>
+			ORDER BY A."Test_Field"</UL>
+
+		<B>Note</B>: If the following is used then the conversion
+		will be wrong.<BR>
+		Change from
+			<UL>
+			Select A.Test_Field From Mixed_Caps_Table A<BR>
+			Order By A.Test_Field</UL>
+		to
+			<UL>
+			"Select" A."Test_Field" "From" "Mixed_Caps_Table" A<BR>
+			"Order" "By" A."Test_Field"</UL></P>
+
+	</UL>
+
+	<P><B>SCHEMA detail</B></P>
+     <P>InterBase does not support any explicit schema names. But, the support here is for ODBC applications that might use schema names in their queries.<P>
+     <UL>
+    <P>"Set null field SCHEMA" or connect string USESCHEMA=0;(default)<BR>
+     Examples:<BR>
+     from:
+           <UL>
+           select COUNTRY,CURRENCY from COUNTRY
+           </UL>
+     to: server 
+           <UL>
+           select COUNTRY,CURRENCY from COUNTRY
+           </UL>
+     </P>
+
+    <P>
+    "Remove SCHEMA from SQL query" or connect string USESCHEMA=1;<BR>
+     Examples:<BR>
+     from:
+           <UL>
+           select SYSDBA.COUNTRY,SYSDBA.CURRENCY from SYSDBA.COUNTRY
+           </UL>
+     to: server 
+           <UL>
+           select COUNTRY,CURRENCY from COUNTRY
+           </UL>
+     </P>
+
+    <P>
+    "Use full SCHEMA" or connect string USESCHEMA=2;<BR>
+     Examples:<BR>
+     from:
+           <UL>
+           select SYSDBA.COUNTRY,SYSDBA.CURRENCY from SYSDBA.COUNTRY
+           </UL>
+     to: server 
+           <UL>
+           select SYSDBA.COUNTRY,SYSDBA.CURRENCY from SYSDBA.COUNTRY
+           </UL>
+     </P>
+
+</BODY>
+</HTML>
