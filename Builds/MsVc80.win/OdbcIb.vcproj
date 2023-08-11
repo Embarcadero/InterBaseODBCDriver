@@ -49,7 +49,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase\SDK\include\&quot;"
+				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase_ib2020\SDK\include\&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;DEBUG;LOGGING"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
@@ -144,7 +144,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase\SDK\include\&quot;"
+				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase_ib2020\SDK\include\&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;DEBUG;LOGGING"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
@@ -241,7 +241,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase\SDK\include\&quot;"
+				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase_ib2020\SDK\include\&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -334,7 +334,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase\SDK\include\&quot;"
+				AdditionalIncludeDirectories="../../IscDbc;c:\Embarcadero\InterBase\SDK\include\;&quot;C:\Program Files\Embarcadero\InterBase_ib2020\SDK\include\&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
