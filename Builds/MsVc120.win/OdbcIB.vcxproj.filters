@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="IscDbc">
+      <UniqueIdentifier>{da6936f7-8f43-42f8-88fb-09fe5740f6d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IscDbc\Source Files IscDbc">
+      <UniqueIdentifier>{35c175a3-6a33-436a-afe4-7eb56c41e3a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IscDbc\Header Files IscDbc">
+      <UniqueIdentifier>{6f752bd1-89ef-4069-b540-bc85c7af4f06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OdbcJdbc">
+      <UniqueIdentifier>{31fe864c-00e7-4010-b89f-f7e97f0b7ea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OdbcJdbc\Header Files Odbc">
+      <UniqueIdentifier>{a912b965-20c0-4181-9ba1-a65b8db5a2cc}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="OdbcJdbc\Source Files Odbc">
+      <UniqueIdentifier>{0728281e-dbd7-4286-bbe8-d693543502a9}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="OdbcJdbc\Resource Files Odbc">
+      <UniqueIdentifier>{82fbf4cd-0deb-461f-a6e3-c3bcbb52a725}</UniqueIdentifier>
+      <Extensions>.rc</Extensions>
+    </Filter>
+    <Filter Include="OdbcJdbcSetup">
+      <UniqueIdentifier>{8ad1c224-e7b5-4af4-81d8-f5dab631a604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OdbcJdbcSetup\Source Files Setup">
+      <UniqueIdentifier>{69b83c8f-215b-455f-81a3-ab74b3ad43a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OdbcJdbcSetup\Header Files Setup">
+      <UniqueIdentifier>{a617d9e1-6e46-4f5e-b26e-bd552ba95865}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\IscDbc\Attachment.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\BinaryBlob.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Blob.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\DateTime.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\EnvShare.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\extodbc.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscArray.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscBlob.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscCallableStatement.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscColumnKeyInfo.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscColumnPrivilegesResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscColumnsResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscConnection.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscCrossReferenceResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscDatabaseMetaData.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscIndexInfoResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscMetaDataResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscOdbcStatement.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscPreparedStatement.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscPrimaryKeysResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscProcedureColumnsResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscProceduresResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscResultSetMetaData.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscSpecialColumnsResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscSqlType.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscStatement.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscStatementMetaData.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscTablePrivilegesResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscTablesResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\IscUserEvents.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\JString.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\LinkedList.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\LoadFbClientDll.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Lock.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\MultibyteConvert.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Mutex.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Parameter.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\ParameterEvent.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Parameters.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\ParametersEvents.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\ServiceManager.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Sqlda.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\SQLError.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\SqlTime.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Stream.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\SupportFunctions.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\TimeStamp.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\TypesResultSet.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Value.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IscDbc\Values.cpp">
+      <Filter>IscDbc\Source Files IscDbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ConnectDialog.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DescRecord.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Main.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MainUnicode.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MbsAndWcs.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcConnection.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcConvert.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcDateTime.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcDesc.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcEnv.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcError.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcObject.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcStatement.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ResourceManagerSink.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SafeEnvThread.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\TransactionResourceAsync.cpp">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\CommonUtil.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\DsnDialog.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\OdbcJdbcSetup.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceClient.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceTabBackup.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceTabChild.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceTabCtrl.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceTabRepair.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceTabRestore.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceTabStatistics.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\ServiceTabUsers.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\Setup.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\UserDialog.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\UsersTabChild.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\UsersTabMemberShips.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\UsersTabRoles.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OdbcJdbcSetup\UsersTabUsers.cpp">
+      <Filter>OdbcJdbcSetup\Source Files Setup</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\IscDbc\Attachment.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\BinaryBlob.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\BinToHexStr.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Blob.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Connection.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\DateTime.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\EnvShare.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscArray.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscBlob.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscCallableStatement.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscColumnKeyInfo.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscColumnPrivilegesResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscColumnsResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscConnection.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscCrossReferenceResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscDatabaseMetaData.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscDbc.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscIndexInfoResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscMetaDataResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscOdbcStatement.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscPreparedStatement.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscPrimaryKeysResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscProcedureColumnsResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscProceduresResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscResultSetMetaData.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscSpecialColumnsResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscSqlType.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscStatement.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscStatementMetaData.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscTablePrivilegesResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscTablesResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\IscUserEvents.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\JavaType.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\JString.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\LinkedList.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\LoadFbClientDll.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Lock.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Mlist.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\MultibyteConvert.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Mutex.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Parameter.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\ParameterEvent.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Parameters.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\ParametersEvents.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Properties.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\ServiceManager.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Sqlda.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\SQLError.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\SQLException.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\SqlTime.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Stream.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\SupportFunctions.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\TimeStamp.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Types.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\TypesResultSet.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IscDbc\Value.h">
+      <Filter>IscDbc\Header Files IscDbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ConnectDialog.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DescRecord.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InfoItems.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcConnection.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcConvert.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcDateTime.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcDesc.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcEnv.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcError.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbc.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcObject.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcStatement.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\OdbcUserEvents.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ResourceManagerSink.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SafeEnvThread.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SetupAttributes.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\TemplateConvert.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\TransactionResourceAsync.h">
+      <Filter>OdbcJdbc\Header Files Odbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\CommonUtil.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\DsnDialog.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\OdbcJdbcSetup.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\resource.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceClient.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceTabBackup.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceTabChild.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceTabCtrl.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceTabRepair.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceTabRestore.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceTabStatistics.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\ServiceTabUsers.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\Setup.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\UserDialog.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\UsersTabChild.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\UsersTabMemberShips.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\UsersTabRoles.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OdbcJdbcSetup\UsersTabUsers.h">
+      <Filter>OdbcJdbcSetup\Header Files Setup</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\OdbcJdbc.def">
+      <Filter>OdbcJdbc\Source Files Odbc</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\ODbcJdbc.rc">
+      <Filter>OdbcJdbc\Resource Files Odbc</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
