@@ -22,7 +22,7 @@ int main (int argc, const char **argv)
     {
     const char **end = argv + argc;
 //    const char *connectString = "ODBC;DSN=FireBirdOdbc;DRIVER=OdbcJdbc;ROLE=cinnamon";
-    const char *connectString = "DSN=FireBirdOdbc";
+    const char *connectString = "DSN=InterBaseEmployeeDB";
 
     for (++argv; argv < end;)
         {
@@ -46,13 +46,13 @@ int main (int argc, const char **argv)
     if (HDBC connection = testConnect (connectString))
 	{
 	test1 (connection);
-//	test2 (connection);
-//	test3 (connection);
-//	test4 (connection);
-//	test5 (connection);
-//	test6 (connection);
+	test2 (connection);
+	test3 (connection);
+	test4 (connection);
+	test5 (connection);
+	test6 (connection);
 	test7 (connection);
-//	test8 (connection);
+	test8 (connection);
 
 	testDisconnect (connection);
 	}
@@ -139,7 +139,7 @@ void test1 (HDBC connection)
     SWORD   scale;
     SWORD   nullable;
 
-    ret = SQLDescribeParam (statement, 1, &type, &precision, &scale, &nullable);
+    ret = SQLDescribeParam (statement, 1, &type, (SQLULEN *) &precision, &scale, &nullable);
     if (!OdbcCheckCode (ret, statement, "SQLDescribeParam"))
         return;
 
@@ -157,7 +157,7 @@ void test1 (HDBC connection)
     SQLINTEGER firstNameLength;
     tagDATE_STRUCT hireDate;
 
-    ret = SQLBindCol (statement, 1, SQL_C_CHAR, firstName, sizeof (firstName), &firstNameLength);
+    ret = SQLBindCol (statement, 1, SQL_C_CHAR, firstName, sizeof (firstName), (SQLLEN *) &firstNameLength);
     if (!OdbcCheckCode (ret, statement, "SQLBindCol"))
         return;
 

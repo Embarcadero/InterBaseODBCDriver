@@ -69,7 +69,7 @@ void Print::printLine()
 		char *start = buffer + column->offset + (column->length - column->precision) / 2;
 		while (p < start)
 			*p++ = ' ';
-		SDWORD length;
+		SQLLEN length;
 		*p = 0;
 		int retcode = SQLGetData (statement, n, SQL_C_CHAR, p, column->precision + 1, &length);
 		if (!OdbcCheckCode (retcode, statement, "SQLGetData"))
@@ -103,7 +103,7 @@ void Print::getDescription()
 		retcode = SQLDescribeCol (statement, n, 
 					  (UCHAR*) column->name, sizeof (column->name), &nameLength,
 					  &column->sqlType, 
-					  &column->precision, 
+					  (SQLULEN *) &column->precision, 
 					  &column->scale, 
 					  &column->nullable);
 		if (!OdbcCheckCode (retcode, statement, "SQLDescribeCol"))
