@@ -1,24 +1,41 @@
- 
+---------------------------------------------------------------
+InterBase ODBC driver ver 1.00.00.105
+
+10-Aug-2023: Contributions by Embarcadero Technologies Inc.
+  Changes for InterBase ODBC driver
+  INTB-4314: Upgrade ODBC driver build solution to Visual Studio 2013.
+    Project build solution available in sub-folder Builds/MsVc120.win
+  INTB-4328: SQLGetTypeInfo() for SQL_ALL_TYPES should not return BIGINT for InterBase
+
+---------------------------------------------------------------
+InterBase ODBC driver ver 1.00.00.103
+
+19-Nov-2014: Contribution by Embarcadero Technologies Inc.
+  Changes for InterBase ODBC driver
+  INTB-2289: Make ODBC driver safe to use with InterBase XE7, Change Views (subscription)
+
 ---------------------------------------------------------------
 InterBase ODBC driver ver 1.00.00.102
 
 03-Oct-2013: Contribution by Embarcadero Technologies Inc.
-             INTB-1903: Changes for InterBase ODBC driver
-               In getPrecision(), for dialect 3 databases, return sqlprecision from sqlvar for NUMERIC/DECIMAL subtypes.  
+  Changes for InterBase ODBC driver
+  INTB-1903: In getPrecision(), for dialect 3 databases, return sqlprecision 
+    from sqlvar for NUMERIC/DECIMAL subtypes.  
 
 05-Sep-2013: Contribution by Embarcadero Technologies Inc.
-             INTB-1824: Changes for InterBase ODBC driver
-               sqllen should be returned as-is for multi-byte 
-               character set display options in getColumnDisplaySize() and getPrecision()
-               Resolve problem with MBCS character data truncation
+  Changes for InterBase ODBC driver
+  INTB-1824, QC case 111486: http://qc.embarcadero.com/wc/qcmain.aspx?d=111486
+    sqllen should be returned as-is for multi-byte 
+      character set display options in getColumnDisplaySize() and getPrecision()
+    Resolve problem with MBCS character data truncation
 
 ---------------------------------------------------------------
 InterBase ODBC driver ver 1.00.00.101
 
 28-Jun-2013: Contribution by Embarcadero Technologies Inc.
-             Changes for InterBase ODBC driver
-             QC case 116886 (http://qc.embarcadero.com/wc/qcmain.aspx?d=116886)
-             Extended Metadata name length
+  Changes for InterBase ODBC driver
+    INTB-1862, QC case 116886: http://qc.embarcadero.com/wc/qcmain.aspx?d=116886
+      Extended Metadata name length
 
 ---------------------------------------------------------------
 InterBase ODBC driver ver 1.00.00.100
