@@ -29,7 +29,9 @@ GCC		= g++
 
 
 #Override default variables for this build
-ARCH = x86
+#ARCH = x86
+#INTERBASE=/opt/interbase
+ARCH = x86_64
 INTERBASE=/opt/interbase
 
 # Get version info

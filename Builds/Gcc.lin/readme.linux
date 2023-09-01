@@ -1,4 +1,15 @@
 #
+# Build notes for Ubuntu Linux:
+#   1. Install 'unixodbc-dev' package to get some unixOdbc include files.
+#      sudo apt-get install unixodbc-dev
+#   2. Change makefile.linux for ARCH builds (x86 or x86_64), and
+#      INTERBASE location for include files.
+#
+# General build notes:
+#   make -f makefile.linux clean
+#   make -f makefile.linux
+#   make -f makefile.linux package
+#
 # 07-Aug-2012: Contribution by Embarcadero Technologies Inc.
 #              Changes for InterBase ODBC driver
 #
@@ -9,7 +20,7 @@ For connect from unixODBC :
     libOdbcIB.so
 
 
-The odbc-config-files in /etc shoud look like this:
+The odbc-config-files in /etc should look like this:
 
 odbcinst.ini:
 --------------------
