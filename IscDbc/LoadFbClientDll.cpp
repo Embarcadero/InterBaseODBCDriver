@@ -60,6 +60,7 @@ bool CFbDll::LoadDll (const char * client, const char * clientDef)
 	__ENTRYPOINT(array_lookup_bounds);
 
 	__ENTRYPOINT(vax_integer);
+	__ENTRYPOINT(portable_integer);
 	__ENTRYPOINT(start_transaction);
 	__ENTRYPOINT(sqlcode);
 	__ENTRYPOINT(sql_interprete);

@@ -4,7 +4,7 @@
  *     Developer's Public License Version 1.0 (the "License"); 
  *     you may not use this file except in compliance with the 
  *     License. You may obtain a copy of the License at 
- *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl.
+ *     https://www.firebirdsql.org/en/initial-developer-s-public-license-version-1-0/
  *
  *     Software distributed under the License is distributed on 
  *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
@@ -68,7 +68,7 @@ Properties* CServiceManager::allocProperties()
 	return new Parameters;
 }
 
-void CServiceManager::startBackupDatabase( Properties *prop, ULONG options )
+void CServiceManager::startBackupDatabase( Properties *prop, ISC_ULONG options )
 {
 	ISC_STATUS status[20];
 	char svcName[RESPONSE_BUFFER/12];
@@ -83,7 +83,7 @@ void CServiceManager::startBackupDatabase( Properties *prop, ULONG options )
 	const char *pt;
 	const char *param;
 	bool isServer = false;
-	ULONG tempVal;
+	ISC_ULONG tempVal;
 
 	properties = prop;
 	ADD_PARAM( spb, isc_spb_version );
@@ -143,7 +143,7 @@ void CServiceManager::startBackupDatabase( Properties *prop, ULONG options )
 		throw SQLEXCEPTION( GDS->_sqlcode( status ), status[1], getIscStatusText( status ) );
 }
 
-void CServiceManager::startRestoreDatabase( Properties *prop, ULONG options )
+void CServiceManager::startRestoreDatabase( Properties *prop, ISC_ULONG options )
 {
 	ISC_STATUS status[20];
 	char svcName[RESPONSE_BUFFER/12];
@@ -158,7 +158,7 @@ void CServiceManager::startRestoreDatabase( Properties *prop, ULONG options )
 	const char *pt;
 	const char *param;
 	bool isServer = false;
-	ULONG sizeVal;
+	ISC_ULONG sizeVal;
 
 	properties = prop;
 	ADD_PARAM( spb, isc_spb_version );
@@ -263,7 +263,7 @@ void CServiceManager::exitRestoreDatabase()
 	}
 }
 
-void CServiceManager::startStaticticsDatabase( Properties *prop, ULONG options )
+void CServiceManager::startStaticticsDatabase( Properties *prop, ISC_ULONG options )
 {
 	ISC_STATUS status[20];
 	char svcName[RESPONSE_BUFFER/12];
@@ -386,7 +386,7 @@ void CServiceManager::startShowDatabaseLog( Properties *prop )
 		throw SQLEXCEPTION( GDS->_sqlcode( status ), status[1], getIscStatusText( status ) );
 }
 
-void CServiceManager::startRepairDatabase( Properties *prop, ULONG options, ULONG optionsValidate )
+void CServiceManager::startRepairDatabase( Properties *prop, ISC_ULONG options, ISC_ULONG optionsValidate )
 {
 	ISC_STATUS status[20];
 	char svcName[RESPONSE_BUFFER/12];
@@ -471,7 +471,7 @@ void CServiceManager::startUsersQuery( Properties *prop )
 	const char *param;
 	const char *paramUser;
 	bool isServer = false;
-	ULONG tempVal;
+	ISC_ULONG tempVal;
 
 	properties = prop;
 	ADD_PARAM( spb, isc_spb_version );

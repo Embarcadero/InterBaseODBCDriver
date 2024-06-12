@@ -3,5 +3,5 @@
 // pick up the value.
 // Check IBchange.log file for BUILDNUM_VERSION notes. Update then.
 // 
-#define BUILDNUM_VERSION		105
+#define BUILDNUM_VERSION		106
 

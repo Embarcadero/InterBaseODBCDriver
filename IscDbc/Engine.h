@@ -49,7 +49,7 @@ typedef wchar_t			WCHAR;
 #endif
 
 typedef unsigned char	UCHAR;
-typedef unsigned long	ULONG;
+typedef unsigned int	ULONG;
 
 enum LockType {
 	None,

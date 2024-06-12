@@ -4,7 +4,7 @@
  *     Developer's Public License Version 1.0 (the "License"); 
  *     you may not use this file except in compliance with the 
  *     License. You may obtain a copy of the License at 
- *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl.
+ *     https://www.firebirdsql.org/en/initial-developer-s-public-license-version-1-0/
  *
  *     Software distributed under the License is distributed on 
  *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
@@ -197,10 +197,11 @@ JString EnvShare::getDatabaseServerName()
 {
 	if ( databaseServerName.IsEmpty() )
 	{
-		ULONG nSize = 256;
 #ifdef _WINDOWS
+		DWORD nSize = 256;
 		GetComputerName( databaseServerName.getBuffer( nSize ), &nSize );
 #else
+		size_t nSize = 256;
 		gethostname( databaseServerName.getBuffer( nSize ), nSize );
 #endif
 	}

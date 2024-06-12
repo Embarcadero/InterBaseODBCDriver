@@ -47,8 +47,8 @@ PACKAGE_NAME = $(LIB_ROOT_NAME)-$(PACKAGE_VERSION).tar
 #
 # Start build
 #
-include ../makefile.sources
-include ../makefile.environ
+include ../Builds/makefile.sources
+include ../Builds/makefile.environ
 #
 
 ifndef ODBCMANAGER
@@ -57,8 +57,7 @@ ODBCMANAGER	= unixODBC
 endif
 
 ifeq ($(ARCH),x86_64)
-#LIB = lib64
-LIB = lib
+LIB = lib64
 else
 LIB = lib
 endif
@@ -121,7 +120,7 @@ ODBCJDBCDEFFILE	= $(ODBCJDBCDIR)/OdbcJdbc.def
 ODBCJDBCSDEFFILE= $(ODBCJDBCSETUPDIR)/OdbcJdbcSetup.def
 #
 ifeq (Yes,$(DEBUG))
-DEBUGFLAGS	= -D_DEBUG -DDEBUG -DLOGGING -fexceptions -g
+DEBUGFLAGS	= -D_DEBUG -DDEBUG -DLOGGING -fexceptions 
 else
 DEBUGFLAGS	= -DNDEBUG
 endif
@@ -137,11 +136,18 @@ ISCDBCLIB       = $(ISCDBCDLL:.so=.a)
 ODBCJDBCLIB     = $(ODBCJDBCDLL:.so=.a)
 ODBCJDBCSETUPLIB= $(ODBCJDBCSETUPDLL:.so=.a)
 
+# Common modules for Tests
+TESTCOMMON	= Print.o JString.o Odbc.o
 
 
 #
-all :	createdirs $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
-#
+#all :	createdirs $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
+all :	SimpleTest
+
+# SimpleTest
+SimpleTest : SimpleTest.o $(TESTCOMMON)
+	$(GCC) SimpleTest.o $(TESTCOMMON) $(COMPFLAGS) -l$(LIB_ROOT_NAME) $(LIBODBCINST) -o $@
+
 # If required, print out the version info
 getVersion : 
 	$(warning MAJOR_VERSION is $(MAJOR_VERSION) )
@@ -183,7 +189,7 @@ $(ODBCJDBCDLL) : $(ISCDBCDLL) $(ODBCJDBCSETUPDLL) $(LIST_ODBCJDBCOBJ)
 	$(GCC) $(LINKFLAGS) $(LIST_ISCDBCOBJ) $(LIST_ODBCJDBCOBJ) $(LIST_ODBCJDBCSETUPOBJ) $(EXTLIBS) $(LIBODBCINST) --def $(ODBCJDBCDEFFILE) -o $(ODBCJDBCDLL)
 #
 postbuild : $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
-	@-strip -s $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
+	#@-strip -s $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
 	@-tar -cf OdbcJdbc_Snapshot.tar $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
 	@-gzip -9 -S .gz OdbcJdbc_Snapshot.tar
 #
@@ -196,7 +202,7 @@ uninstall :
 	@-rm -f $(UNIXODBCDIR)/$(ODBCJDBC)*.* 
 #
 package :
-	-strip -s $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
+	#-strip -s $(ISCDBCDLL) $(ODBCJDBCDLL) $(ODBCJDBCSETUPDLL)
 	-rm $(PACKAGE_NAME).gz
 	chmod 740 ../../Install/Linux/install.sh
 	tar -C $(TARGETDIR) -cvf OdbcJdbcLibs.tar $(ISCDBC) $(ODBCJDBC) $(ODBCJDBCSETUP)

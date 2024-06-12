@@ -16,13 +16,15 @@ static void test6 (HDBC);
 static void test7 (HDBC);
 static void test8 (HDBC);
 static void testDisconnect (HDBC);
+static void printTest (char *); /* print out test being executed */
 
 
 int main (int argc, const char **argv)
     {
     const char **end = argv + argc;
 //    const char *connectString = "ODBC;DSN=FireBirdOdbc;DRIVER=OdbcJdbc;ROLE=cinnamon";
-    const char *connectString = "DSN=InterBaseEmployeeDB";
+    //const char *connectString = "DSN=InterBaseEmployeeDB";
+    const char *connectString = "DSN=TestInterBaseConnection";
 
     for (++argv; argv < end;)
         {
@@ -45,14 +47,14 @@ int main (int argc, const char **argv)
         }
     if (HDBC connection = testConnect (connectString))
 	{
-	test1 (connection);
-	test2 (connection);
-	test3 (connection);
-	test4 (connection);
-	test5 (connection);
-	test6 (connection);
-	test7 (connection);
-	test8 (connection);
+	printTest ("test1"); test1 (connection);
+	printTest ("test2"); test2 (connection);
+	printTest ("test3"); test3 (connection);
+	printTest ("test4"); test4 (connection);
+	printTest ("test5"); test5 (connection);
+	printTest ("test6"); test6 (connection);
+	printTest ("test7"); test7 (connection);
+	printTest ("test8"); test8 (connection);
 
 	testDisconnect (connection);
 	}
@@ -93,7 +95,8 @@ HDBC testConnect (const char *connectString)
     if (!OdbcCheckCode (ret, connection, "SQLConnect", SQL_HANDLE_DBC))
        return NULL;
 
-    ret = SQLSetConnectAttr (connection, SQL_ATTR_AUTOCOMMIT, (SQLPOINTER) SQL_AUTOCOMMIT_OFF, 0);
+    // ret = SQLSetConnectAttr (connection, SQL_ATTR_AUTOCOMMIT, (SQLPOINTER) SQL_AUTOCOMMIT_OFF, 0);
+    ret = SQLSetConnectAttr (connection, SQL_ATTR_AUTOCOMMIT, (SQLPOINTER) SQL_AUTOCOMMIT_ON, 0);
     if (!OdbcCheckCode (ret, connection, "SQLSetConnectAttr", SQL_HANDLE_DBC))
         return NULL;
     
@@ -235,7 +238,7 @@ void test3 (HDBC connection)
     return;
 
     ret = SQLExecDirect (statement, 
-    (UCHAR*) "create table bar (f1 smallint references foo)", SQL_NTS);
+		(UCHAR*) "create table bar (f1 smallint references foo(f1))", SQL_NTS);
     if (!OdbcCheckCode (ret, statement, "SQLExecDirect"))
     return;
 
@@ -316,7 +319,6 @@ void test4 (HDBC connection)
         return;
     print.printAll();
     
-    
     ret = SQLGetTypeInfo (statement, SQL_ALL_TYPES);
     if (!OdbcCheckCode (ret, statement, "SQLGetTypeInfo"))
         return;
@@ -365,7 +367,8 @@ void test5 (HDBC connection)
     if (!OdbcCheckCode (ret, statement, "SQLExecDirect"))
         return;
 
-    char *blobString = "This is blob content.";
+    char blobString[256];
+    strcpy (blobString, "This is blob content.");
     ret = SQLBindParameter (statement, 1, SQL_PARAM_INPUT, 
                             SQL_C_CHAR, SQL_LONGVARBINARY, 50, 0, blobString, strlen (blobString) + 1, NULL);
     if (!OdbcCheckCode (ret, statement, "SQLBindParameter"))
@@ -399,7 +402,7 @@ void test6 (HDBC connection)
     * Try a store procedure
     */
 
-    long count;
+    int count;
     int parameter = 1;
     /***
     ret = SQLBindParameter (statement, parameter++, SQL_PARAM_INPUT, 
@@ -575,3 +578,11 @@ void testDisconnect (HDBC connection)
 
 
     }
+
+static void printTest (char *testname)
+{
+printf ("\n******\n");
+printf ("Running Test: %s\n", (testname) ? testname : "No Name provided");
+printf ("******\n");
+}
+

@@ -4,7 +4,7 @@
  *     Developer's Public License Version 1.0 (the "License"); 
  *     you may not use this file except in compliance with the 
  *     License. You may obtain a copy of the License at 
- *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl.
+ *     https://www.firebirdsql.org/en/initial-developer-s-public-license-version-1-0/
  *
  *     Software distributed under the License is distributed on 
  *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
@@ -56,12 +56,12 @@ class CServiceManager : public ServiceManager
 {
 public:
 	virtual Properties*	allocProperties();
-	virtual void startBackupDatabase( Properties *prop, ULONG options );
-	virtual void startRestoreDatabase( Properties *prop, ULONG options );
+	virtual void startBackupDatabase( Properties *prop, ISC_ULONG options );
+	virtual void startRestoreDatabase( Properties *prop, ISC_ULONG options );
 	virtual void exitRestoreDatabase( void );
-	virtual void startStaticticsDatabase( Properties *prop, ULONG options );
+	virtual void startStaticticsDatabase( Properties *prop, ISC_ULONG options );
 	virtual void startShowDatabaseLog( Properties *prop );
-	virtual void startRepairDatabase( Properties *prop, ULONG options, ULONG optionsValidate );
+	virtual void startRepairDatabase( Properties *prop, ISC_ULONG options, ISC_ULONG optionsValidate );
 	virtual void startUsersQuery( Properties *prop );
 	virtual bool nextQuery( char *outBuffer, int length, int &lengthOut, int &countError );
 	virtual bool nextQueryLimboTransactionInfo( char *outBuffer, int length, int &lengthOut );

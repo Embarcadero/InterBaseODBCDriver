@@ -4,7 +4,7 @@
  *     Developer's Public License Version 1.0 (the "License"); 
  *     you may not use this file except in compliance with the 
  *     License. You may obtain a copy of the License at 
- *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl.
+ *     https://www.firebirdsql.org/en/initial-developer-s-public-license-version-1-0/
  *
  *     Software distributed under the License is distributed on 
  *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
@@ -1669,21 +1669,21 @@ ODBCCONVERT_CONVTAGNUMERIC(Short,short);
 // Long
 ////////////////////////////////////////////////////////////////////////
 
-ODBCCONVERT_CONV(Long,long,TinyInt,char);
-ODBCCONVERT_CONV(Long,long,Short,short);
-ODBCCONVERT_CONV(Long,long,Long,long);
-ODBCCONVERT_CONV(Long,long,Float,float);
-ODBCCONVERT_CONV(Long,long,Double,double);
-ODBCCONVERT_CONV(Long,long,Bigint,QUAD);
-ODBCCONVERT_WITH_SCALE_CONV(Long,long,TinyInt,char);
-ODBCCONVERT_WITH_SCALE_CONV(Long,long,Short,short);
-ODBCCONVERT_WITH_SCALE_CONV(Long,long,Long,long);
-ODBCCONVERT_WITH_SCALE_CONV(Long,long,Float,float);
-ODBCCONVERT_WITH_SCALE_CONV(Long,long,Double,double);
-ODBCCONVERT_WITH_SCALE_CONV(Long,long,Bigint,QUAD);
-ODBCCONVERT_CONV_TO_STRING(Long,long,10);
-ODBCCONVERT_CONV_TO_STRINGW(Long,long,10);
-ODBCCONVERT_CONVTAGNUMERIC(Long,long);
+ODBCCONVERT_CONV(Long,int,TinyInt,char);
+ODBCCONVERT_CONV(Long,int,Short,short);
+ODBCCONVERT_CONV(Long,int,Long,long);
+ODBCCONVERT_CONV(Long,int,Float,float);
+ODBCCONVERT_CONV(Long,int,Double,double);
+ODBCCONVERT_CONV(Long,int,Bigint,QUAD);
+ODBCCONVERT_WITH_SCALE_CONV(Long,int,TinyInt,char);
+ODBCCONVERT_WITH_SCALE_CONV(Long,int,Short,short);
+ODBCCONVERT_WITH_SCALE_CONV(Long,int,Long,long);
+ODBCCONVERT_WITH_SCALE_CONV(Long,int,Float,float);
+ODBCCONVERT_WITH_SCALE_CONV(Long,int,Double,double);
+ODBCCONVERT_WITH_SCALE_CONV(Long,int,Bigint,QUAD);
+ODBCCONVERT_CONV_TO_STRING(Long,int,10);
+ODBCCONVERT_CONV_TO_STRINGW(Long,int,10);
+ODBCCONVERT_CONVTAGNUMERIC(Long,int);
 
 ////////////////////////////////////////////////////////////////////////
 // Float

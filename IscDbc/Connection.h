@@ -4,7 +4,7 @@
  *     Developer's Public License Version 1.0 (the "License"); 
  *     you may not use this file except in compliance with the 
  *     License. You may obtain a copy of the License at 
- *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl.
+ *     https://www.firebirdsql.org/en/initial-developer-s-public-license-version-1-0/
  *
  *     Software distributed under the License is distributed on 
  *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
@@ -55,7 +55,9 @@
 #endif
 
 typedef unsigned char	UCHAR;
-typedef unsigned long	ULONG;
+/* system include file should have ULONG defined in sqltypes.h; no need to define our own,
+ * as it will lead to build failures on Linux */
+//typedef unsigned int	ULONG;
 typedef __int64			QUAD;
 typedef unsigned __int64			UQUAD;
 #endif
@@ -169,12 +171,12 @@ class ServiceManager
 {
 public:
 	virtual Properties  *allocProperties() = 0;
-	virtual void        startBackupDatabase( Properties *prop, ULONG options ) = 0;
-	virtual void        startRestoreDatabase( Properties *prop, ULONG options ) = 0;
+	virtual void        startBackupDatabase( Properties *prop, unsigned int options ) = 0;
+	virtual void        startRestoreDatabase( Properties *prop, unsigned int options ) = 0;
 	virtual void        exitRestoreDatabase() = 0;
-	virtual void        startStaticticsDatabase( Properties *prop, ULONG options ) = 0;
+	virtual void        startStaticticsDatabase( Properties *prop, unsigned int options ) = 0;
 	virtual void        startShowDatabaseLog( Properties *prop ) = 0;
-	virtual void        startRepairDatabase( Properties *prop, ULONG options, ULONG optionsValidate ) = 0;
+	virtual void        startRepairDatabase( Properties *prop, unsigned int options, unsigned int optionsValidate ) = 0;
 	virtual void        startUsersQuery( Properties *prop ) = 0;
 	virtual bool        nextQuery( char *outBuffer, int length, int &lengthOut, int &countError ) = 0;
 	virtual bool        nextQueryLimboTransactionInfo( char *outBuffer, int length, int &lengthOut ) = 0;
@@ -224,9 +226,9 @@ public:
 	virtual void		rollbackAuto() = 0;
 
 	virtual Blob*		genHTML (Properties *context, long genHeaders) = 0;
-	virtual int			getNativeSql (const char * inStatementText, long textLength1,
-										char * outStatementText, long bufferLength,
-										long * textLength2Ptr) = 0;
+	virtual int			getNativeSql (const char * inStatementText, int textLength1,
+										char * outStatementText, int bufferLength,
+										int * textLength2Ptr) = 0;
 
 	virtual PropertiesEvents* allocPropertiesEvents() = 0;
 	virtual UserEvents* prepareUserEvents( PropertiesEvents *context, callbackEvent astRoutine, void *userAppData = 0 ) = 0;

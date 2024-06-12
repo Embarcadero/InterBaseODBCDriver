@@ -136,6 +136,9 @@ typedef ISC_STATUS  ISC_EXPORT blob_info (ISC_STATUS ISC_FAR *,
 typedef ISC_LONG    ISC_EXPORT vax_integer (char ISC_FAR *, 
 					short);
 
+typedef ISC_INT64    ISC_EXPORT portable_integer (char ISC_FAR *, 
+					short);
+
 typedef ISC_STATUS ISC_EXPORT_VARARG start_transaction(ISC_STATUS ISC_FAR*,
 					isc_tr_handle ISC_FAR*,
 					short, ...);
@@ -343,6 +346,7 @@ public:
 	blob_info*					_blob_info;
 
 	vax_integer*				_vax_integer;
+	portable_integer*				_portable_integer;
 	sqlcode*					_sqlcode;
 	sql_interprete*				_sql_interprete;
 	interprete*					_interprete;

@@ -11,6 +11,7 @@
 #else
 #include <sql.h>
 #include <sqlext.h>
+#include <string.h>
 //#define OutputDebugString	puts
 #endif
 

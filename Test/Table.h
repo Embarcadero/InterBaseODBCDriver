@@ -23,11 +23,11 @@ class NetfraDatabase;
 struct FieldInfo {
 	char	fieldName [128];
 	char	typeName [128];
-	long	length;
-	long	dtype;
-	long	nullable;
-	long	precision;
-	long	scale;
+	int	length;
+	int	dtype;
+	int	nullable;
+	int	precision;
+	int	scale;
 public:
 	void print (const char *prefix);
     };

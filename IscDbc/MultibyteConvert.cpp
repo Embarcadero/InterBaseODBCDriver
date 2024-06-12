@@ -4,7 +4,7 @@
  *     Developer's Public License Version 1.0 (the "License"); 
  *     you may not use this file except in compliance with the 
  *     License. You may obtain a copy of the License at 
- *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl.
+ *     https://www.firebirdsql.org/en/initial-developer-s-public-license-version-1-0/
  *
  *     Software distributed under the License is distributed on 
  *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
@@ -513,7 +513,7 @@ static const UChar32 utf8_errorValue[6] =
 unsigned int utf8_mbstowcs( wchar_t *wcs, const char *mbs, unsigned int lengthForMBS )
 {
 	USHORT err_code = 0;
-	ULONG err_position = 0;
+	ISC_ULONG err_position = 0;
 
 	if ( !wcs )
 		return lengthForMBS * sizeof( *wcs );
@@ -522,7 +522,7 @@ unsigned int utf8_mbstowcs( wchar_t *wcs, const char *mbs, unsigned int lengthFo
 	const UCHAR* const mbsEnd = mbsOrg + lengthForMBS;
 	const USHORT* const wcsStart = (const USHORT*)wcs;
 
-	for ( ULONG i = 0; i < lengthForMBS; )
+	for ( ISC_ULONG i = 0; i < lengthForMBS; )
 	{
 		UChar32 c = mbsOrg[i++];
 
@@ -564,8 +564,8 @@ unsigned int utf8_mbstowcs( wchar_t *wcs, const char *mbs, unsigned int lengthFo
 unsigned int utf8_wcstombs( char *mbs, const wchar_t *wcs, unsigned int lengthForMBS )
 {
 	USHORT err_code = 0;
-	ULONG err_position = 0;
-	ULONG wcsLen = (ULONG)wcslen( wcs );
+	ISC_ULONG err_position = 0;
+	ISC_ULONG wcsLen = (ISC_ULONG)wcslen( wcs );
 
 	if ( !wcs || !*wcs )
 		return 0; 
@@ -579,7 +579,7 @@ unsigned int utf8_wcstombs( char *mbs, const wchar_t *wcs, unsigned int lengthFo
 	const UCHAR* const mbsStart = (const UCHAR*)mbsOrg;
 	const UCHAR* const mbsEnd = (const UCHAR*)mbsOrg + lengthForMBS;
 
-	for ( ULONG i = 0; i < wcsLen; )
+	for ( ISC_ULONG i = 0; i < wcsLen; )
 	{
 		if ( !(mbsEnd - mbsOrg) )
 		{

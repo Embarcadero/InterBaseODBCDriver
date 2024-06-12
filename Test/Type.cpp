@@ -108,7 +108,7 @@ int CType::getPrecision()
 	return 0;
 }
 
-void CType::setType(long odbcType, long prec, const char * typeName)
+void CType::setType(int odbcType, int prec, const char * typeName)
 {
 	precision = prec;
 

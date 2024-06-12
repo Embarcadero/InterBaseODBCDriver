@@ -43,7 +43,7 @@ public:
 	CString getCDeclaration (const char *name, CharWidth charWidth);
 	int getCLength (CharWidth charWidth);
 	int getBoundary (CharWidth charWidth);
-	void setType (long dtodbcTypeype, long precision, const char *typeName);
+	void setType (int dtodbcTypeype, int precision, const char *typeName);
 	int getPrecision();
 	bool isInteger();
 	void setType (Type typ, int len);
@@ -54,10 +54,10 @@ public:
 	virtual ~CType();
 
 	Type	type;
-	long	precision;
-	long	length;
-	long	scale;
-	long	indirectCount;			
+	int	precision;
+	int	length;
+	int	scale;
+	int	indirectCount;			
 };
 
 #endif // !defined(AFX_TYPE_H__52063CA1_54A0_11D2_AB3B_0000C01D2301__INCLUDED_)

@@ -4,7 +4,7 @@
  *     Developer's Public License Version 1.0 (the "License"); 
  *     you may not use this file except in compliance with the 
  *     License. You may obtain a copy of the License at 
- *     http://www.ibphoenix.com/main.nfs?a=ibphoenix&page=ibp_idpl.
+ *     https://www.firebirdsql.org/en/initial-developer-s-public-license-version-1-0/
  *
  *     Software distributed under the License is distributed on 
  *     an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either 
@@ -64,7 +64,7 @@ public:
 	void		setTypeVarying()	{ MAKEHEAD(SQL_VARYING, 0, 0, 0); }
 	void		setTypeBoolean()	{ MAKEHEAD(SQL_BOOLEAN, 0, 0, sizeof(TYPE_BOOLEAN)); }
 	void		setTypeShort()		{ MAKEHEAD(SQL_SHORT, 0, 0, sizeof (short)); }
-	void		setTypeLong()		{ MAKEHEAD(SQL_LONG, 0, 0, sizeof (long)); }
+	void		setTypeLong()		{ MAKEHEAD(SQL_LONG, 0, 0, sizeof (int)); }
 	void		setTypeFloat()		{ MAKEHEAD(SQL_FLOAT, 0, 0, sizeof (float)); }
 	void		setTypeDouble()		{ MAKEHEAD(SQL_DOUBLE, 0, 0, sizeof (double)); }
 	void		setType_D_Float()	{ MAKEHEAD(SQL_D_FLOAT, 0, 0, sizeof (double)); }

@@ -91,9 +91,9 @@ HDBC testConnect (const char *connectString)
                             SQL_DRIVER_NOPROMPT);
     if (!OdbcCheckCode (ret, connection, "SQLDriverConnect", SQL_HANDLE_DBC))
         return NULL;
-*/
+ */
     
-    ret = SQLConnect (connection, (UCHAR*)connectString, SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);		
+    ret = SQLConnect (connection, (UCHAR*)connectString, SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);
     if (!OdbcCheckCode (ret, connection, "SQLConnect", SQL_HANDLE_DBC))
        return NULL;
 /*
@@ -266,3 +266,4 @@ void testDisconnect (HDBC connection)
 	return;
 
 }
+
