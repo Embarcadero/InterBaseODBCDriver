@@ -678,7 +678,7 @@ const char* IscDatabaseMetaData::getProcedureTerm()
 
 const char* IscDatabaseMetaData::getCatalogTerm()
 	{
-	return "database";
+	return ""; // "database";
 	}
 
 bool IscDatabaseMetaData::isCatalogAtStart()
@@ -688,7 +688,7 @@ bool IscDatabaseMetaData::isCatalogAtStart()
 
 const char* IscDatabaseMetaData::getCatalogSeparator()
 	{
-	return ".";
+	return ""; // ".";
 	}
 
 bool IscDatabaseMetaData::supportsSchemasInDataManipulation()

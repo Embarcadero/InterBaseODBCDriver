@@ -270,13 +270,20 @@ SQLRETURN OdbcStatement::sqlTables(SQLCHAR * catalog, int catLength,
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat = getString (&p, catalog, catLength, NULL);
+	const char *cat;
 	const char *scheme = getString (&p, schema, schemaLength, NULL);
 	const char *tbl = getString (&p, table, tableLength, NULL);
 	const char *typeString = getString (&p, type, typeLength, "");
 
 	const char *typeVector [16];
 	int numberTypes = 0;
+
+	/* If both schema and table patterns are empty, it could be SQL_ALL_CATALOGS call.
+	   Pass on the catalog; else, kill catalog filter as InterBase does not support it */
+	if (!(scheme && *scheme) && !(tbl && *tbl))
+	    cat = getString (&p, catalog, catLength, NULL);
+	else
+	    cat = NULL;
 
 	for (const char *q = typeString; *q && numberTypes < 16;)
 		if (*q == ' ')
@@ -320,7 +327,7 @@ SQLRETURN OdbcStatement::sqlTablePrivileges(SQLCHAR * catalog, int catLength,
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat			= getString (&p, catalog, catLength, NULL);
+	const char *cat			= NULL; // getString (&p, catalog, catLength, NULL);
 	const char *scheme		= getString (&p, schema, schemaLength, NULL);
 	const char *tbl			= getString (&p, table, tableLength, NULL);
 
@@ -348,7 +355,7 @@ SQLRETURN OdbcStatement::sqlColumnPrivileges(SQLCHAR * catalog, int catLength,
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat		= getString (&p, catalog, catLength, NULL);
+	const char *cat		= NULL; // getString (&p, catalog, catLength, NULL);
 	const char *scheme	= getString (&p, schema, schemaLength, NULL);
 	const char *tbl		= getString (&p, table, tableLength, NULL);
 	const char *col		= getString (&p, column, columnLength, NULL);
@@ -1499,7 +1506,7 @@ SQLRETURN OdbcStatement::sqlColumns(SQLCHAR * catalog, int catLength, SQLCHAR * 
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat = getString (&p, catalog, catLength, NULL);
+	const char *cat = NULL; // getString (&p, catalog, catLength, NULL);
 	const char *scheme = getString (&p, schema, schemaLength, NULL);
 	const char *tbl = getString (&p, table, tableLength, NULL);
 	const char *col = getString (&p, column, columnLength, NULL);
@@ -1603,7 +1610,7 @@ SQLRETURN OdbcStatement::sqlStatistics(SQLCHAR * catalog, int catLength,
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat = getString (&p, catalog, catLength, NULL);
+	const char *cat = NULL; // getString (&p, catalog, catLength, NULL);
 	const char *scheme = getString (&p, schema, schemaLength, NULL);
 	const char *tbl = getString (&p, table, tableLength, NULL);
 
@@ -1630,7 +1637,7 @@ SQLRETURN OdbcStatement::sqlPrimaryKeys(SQLCHAR * catalog, int catLength, SQLCHA
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat = getString (&p, catalog, catLength, NULL);
+	const char *cat = NULL; // getString (&p, catalog, catLength, NULL);
 	const char *scheme = getString (&p, schema, schemaLength, NULL);
 	const char *tbl = getString (&p, table, tableLength, NULL);
 
@@ -1660,10 +1667,10 @@ SQLRETURN OdbcStatement::sqlForeignKeys (SQLCHAR * pkCatalog, int pkCatLength,
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *pkCat = getString (&p, pkCatalog, pkCatLength, NULL);
+	const char *pkCat = NULL; // getString (&p, pkCatalog, pkCatLength, NULL);
 	const char *pkScheme = getString (&p, pkSchema, pkSchemaLength, NULL);
 	const char *pkTbl = getString (&p, pkTable, pkTableLength, NULL);
-	const char *fkCat = getString (&p, fkCatalog, fkCatalogLength, NULL);
+	const char *fkCat = NULL; // getString (&p, fkCatalog, fkCatalogLength, NULL);
 	const char *fkScheme = getString (&p, fkSchema, fkSchemaLength, NULL);
 	const char *fkTbl = getString (&p, fkTable, fkTableLength, NULL);
 
@@ -2299,7 +2306,7 @@ SQLRETURN OdbcStatement::sqlProcedures(SQLCHAR * catalog, int catLength, SQLCHAR
 		releaseStatement();
 		char temp [1024], *p = temp;
 
-		const char *cat = getString (&p, catalog, catLength, NULL);
+		const char *cat = NULL; // getString (&p, catalog, catLength, NULL);
 		const char *scheme = getString (&p, schema, schemaLength, NULL);
 		const char *procedures = getString (&p, proc, procLength, NULL);
 
@@ -2322,7 +2329,7 @@ SQLRETURN OdbcStatement::sqlProcedureColumns(SQLCHAR * catalog, int catLength, S
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat = getString (&p, catalog, catLength, NULL);
+	const char *cat = NULL; // getString (&p, catalog, catLength, NULL);
 	const char *scheme = getString (&p, schema, schemaLength, NULL);
 	const char *procedures = getString (&p, proc, procLength, NULL);
 	const char *columns = getString (&p, col, colLength, NULL);
@@ -3659,7 +3666,7 @@ SQLRETURN OdbcStatement::sqlSpecialColumns(unsigned short rowId, SQLCHAR * catal
 	releaseStatement();
 	char temp [1024], *p = temp;
 
-	const char *cat = getString (&p, catalog, catLength, NULL);
+	const char *cat = NULL; // getString (&p, catalog, catLength, NULL);
 	const char *scheme = getString (&p, schema, schemaLength, NULL);
 	const char *tbl = getString (&p, table, tableLength, NULL);
 

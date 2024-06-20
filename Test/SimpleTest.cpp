@@ -300,8 +300,8 @@ void test4 (HDBC connection)
     print.printAll();
 
     ret = SQLProcedureColumns (statement, 
-                         (UCHAR*)"aBC", SQL_NTS, 
-                         (UCHAR*)"DEF", SQL_NTS, 
+                         NULL, SQL_NTS, 
+                         NULL, SQL_NTS, 
                          (UCHAR*) "%", SQL_NTS,
                          (UCHAR*) "%", SQL_NTS);
     if (!OdbcCheckCode (ret, statement, "SQLProcedureColumns"))

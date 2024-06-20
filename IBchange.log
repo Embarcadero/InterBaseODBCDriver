@@ -1,4 +1,26 @@
 ---------------------------------------------------------------
+InterBase ODBC driver ver 1.00.00.107
+
+20-Jun-2024: Contributions by Embarcadero Technologies Inc.
+  macOS build enabled, and fixes for catalog pattern issues in SQLTables
+  1. INTB-4439: macOS (arm64) build enabled; see Builds/darwin/makefile.darwin
+  2. INTB-3407: fixes for SQLTables when catalog pattern is provided
+       Added test Test/SqlTables.cpp
+
+---------------------------------------------------------------
+InterBase ODBC driver ver 1.00.00.106
+
+10-Jun-2024: Contributions by Embarcadero Technologies Inc.
+  IDPL location change, and fixes for build/test for Linux x86_64/64bit for INTEGER fields
+
+  1. IDPL location change
+  2. INTB-4434: fixes for build/test for Linux x86_64/64bit,
+       and to fix INTEGER/NUMERIC field values retrieval
+       See Builds/Gcc.lin/makefile.linux for changes
+  3. Adding isc_portable_integer() API
+  4. Misc. changes to Test/SimpleTest.cpp
+
+---------------------------------------------------------------
 InterBase ODBC driver ver 1.00.00.105
 
 10-Aug-2023: Contributions by Embarcadero Technologies Inc.
