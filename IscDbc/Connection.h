@@ -87,7 +87,11 @@ size_t _WcsToMbs( char *mbstr,  const wchar_t *wcstr, size_t count );
 
 #else
 
+#ifdef __APPLE__
+#define NAME_CLIENT_SHARE_LIBRARY					"libgds.dylib"
+#else
 #define NAME_CLIENT_SHARE_LIBRARY					"libgds.so"
+#endif
 #define NAME_DEFAULT_CLIENT_SHARE_LIBRARY			NULL
 
 #define OPEN_SHARE_LIBLARY(sharedLibrary)		    dlopen( sharedLibrary, RTLD_NOW )

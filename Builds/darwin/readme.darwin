@@ -1,0 +1,48 @@
+#
+# Build notes for macOS (Darwin):
+#   1. Install unixodbc package to get some unixOdbc include files.
+#      brew install unixodbc
+#   2. Change makefile.darwin for ARCH builds (x86_64 or arm64), and
+#      INTERBASE location for include files.
+#
+# General build notes:
+#   make -f makefile.darwin clean
+#   make -f makefile.darwin
+#   make -f makefile.darwin package
+#
+# 18-Jun-2024: Contribution by Embarcadero Technologies Inc.
+#              Changes for InterBase ODBC driver
+#              Cloned makefile.linux to makefile.darwin, and enabled support for macOS
+#
+
+For connect from unixODBC :
+
+    Into share folder :
+    libOdbcIB.dylib
+
+
+The odbc-config-files in /etc should look like this:
+
+odbcinst.ini:
+--------------------
+[InterBase]
+Description     = InterBase ODBC Driver
+Driver          = /usr/local/lib/libOdbcIB.dylib
+Setup           = /usr/local/lib/libOdbcIB.dylib
+Threading 	= 1
+FileUsage       = 1
+CPTimeout       =
+CPReuse         =
+
+odbc.ini:
+-----------------
+[your_datasource_name]
+Description     = InterBase
+Driver          = InterBase
+Dbname          = localhost:/Applications/InterBase/data/bla.gdb
+User            =
+Password        =
+Role            =
+CharacterSet    =
+ReadOnly        = No
+NoWait          = No

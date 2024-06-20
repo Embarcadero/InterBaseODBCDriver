@@ -100,15 +100,7 @@ void Attachment::loadClientLiblary( Properties *properties )
 	const char *client = properties->findValue ("client", NULL);
 
 	if ( !client || !*client )
-#ifdef _WINDOWS
-#ifdef _WIN64
-		client = "ibclient64.dll";
-#else
-		client = "gds32.dll";
-#endif
-#else
-		client = "libgds.so",
-#endif
+		client = NAME_CLIENT_SHARE_LIBRARY;
 
 	GDS = new CFbDll();
 	if ( !GDS->LoadDll (client, clientDefault) )

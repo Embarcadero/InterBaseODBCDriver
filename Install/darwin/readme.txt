@@ -1,5 +1,5 @@
-InterBase ODBC Driver For Linux
-===================================
+InterBase ODBC Driver For macOS/darwin
+======================================
 
 This is the latest version of the InterBase ODBC 
 driver for InterBase. See 
@@ -12,7 +12,7 @@ Requirements
 This driver has been compiled to use the unixODBC 
 libraries. You must install the core unixODBC 
 libraries in order to be able to use this driver 
-on your Linux dostribution. The unixODBC 
+on your macOS/darwin distribution. The unixODBC 
 development library and the unixODBC GUI tools
 are optional.
 
@@ -21,7 +21,7 @@ Installation
 ------------
 
 Run install.sh. This script will untar the libraries 
-to /usr/lib. It will also install the documentation 
+to /usr/local/lib. It will also install the documentation 
 into the standard documentation location for your 
 distribution.
 
